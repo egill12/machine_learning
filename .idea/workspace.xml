@@ -16,12 +16,6 @@
       <change afterPath="$PROJECT_DIR$/../../DSTA/lab7/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/lab7/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../InfoSec/courseworks/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DeeplayeredNN.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/layeredNN.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/layeredNN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simpleNN.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/code.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/misc.xml" afterDir="false" />
@@ -43,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simpleNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="13" selection-start-line="13" selection-end-line="14" selection-end-column="34" />
+            <state relative-caret-position="289">
+              <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
               <folding>
                 <element signature="e#118#137#0" expanded="true" />
               </folding>
@@ -83,7 +77,7 @@
         <entry file="file://$PROJECT_DIR$/eurusd_analysis.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="6" />
+              <selected id="8" />
             </state>
           </provider>
         </entry>
@@ -99,7 +93,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -112,8 +106,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="5" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="735" />
+    <option name="y" value="170" />
     <option name="width" value="1185" />
     <option name="height" value="1105" />
   </component>
@@ -123,7 +118,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -135,6 +129,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -166,14 +161,14 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\edgil\AppData\Local\Programs\Python\Python36\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="additionalOptions" value="" />
       <option name="ipnbHost" value="127.0.0.1" />
-      <option name="ipnbPort" value="8888" />
+      <option name="ipnbPort" value="8080" />
       <method v="2" />
     </configuration>
     <configuration name="simpleNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -242,8 +237,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/simpleNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="13" selection-start-line="13" selection-end-line="14" selection-end-column="34" />
+        <state relative-caret-position="289">
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
           <folding>
             <element signature="e#118#137#0" expanded="true" />
           </folding>
@@ -274,7 +269,7 @@
     <entry file="file://$PROJECT_DIR$/eurusd_analysis.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="6" />
+          <selected id="8" />
         </state>
       </provider>
     </entry>
