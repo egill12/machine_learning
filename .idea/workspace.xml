@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f77466f-2b15-4b66-8fab-6c42c02ad4fd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../DSTA/NMF.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/code/lab1/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/code/lab1/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/lab6/.idea/encodings.xml" afterDir="false" />
@@ -23,13 +24,15 @@
       <change afterPath="$PROJECT_DIR$/../../DSTA/lab8/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/lab8/lab8.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/lab8/minproject.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../DSTA/montecarlo/ConorK_wagers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../DSTA/montecarlo/montecarloelections.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../InfoSec/courseworks/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DeeplayeredNN.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/layeredNN.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/layeredNN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simpleNN.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../code64/.idea/code64.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../code64/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../code64/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../code64/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../code64/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../code64/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/code.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/misc.xml" afterDir="false" />
@@ -37,8 +40,6 @@
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/cw1_rough_work.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eurusd_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/eurusd_analysis.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -122,9 +123,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="700" />
-    <option name="y" value="141" />
+    <option name="y" value="140" />
     <option name="width" value="1185" />
-    <option name="height" value="1104" />
+    <option name="height" value="1105" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -147,7 +148,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../machine_learning/Coursework/code" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
