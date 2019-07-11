@@ -27,7 +27,6 @@
       <change afterPath="$PROJECT_DIR$/../../DSTA/montecarlo/ConorK_wagers.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/montecarlo/montecarloelections.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../InfoSec/courseworks/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trend_features.ipynb" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../code64/.idea/code64.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../code64/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../code64/.idea/misc.xml" afterDir="false" />
@@ -41,7 +40,7 @@
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/cw1_rough_work.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trend_features.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/trend_features.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -126,6 +125,11 @@
         <option value="Jupyter Notebook" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ewma</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -258,7 +262,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.194051" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.194051" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
