@@ -27,6 +27,12 @@
       <change afterPath="$PROJECT_DIR$/../../DSTA/montecarlo/ConorK_wagers.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../DSTA/montecarlo/montecarloelections.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../InfoSec/courseworks/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DeeplayeredNN.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layeredNN.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layeredNN.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simpleNN.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../code64/.idea/code64.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../code64/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../code64/.idea/misc.xml" afterDir="false" />
@@ -40,6 +46,7 @@
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../machine_learning/Coursework/code/cw1_rough_work.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trend_features.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/trend_features.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,11 +105,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trend_features.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="8" />
+              <selected id="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generate_trend.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/generate_trend.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -121,8 +146,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -145,6 +170,8 @@
         <option value="$PROJECT_DIR$/decisionTrees.ipynb" />
         <option value="$PROJECT_DIR$/trend_features.py" />
         <option value="$PROJECT_DIR$/trend_features.ipynb" />
+        <option value="$PROJECT_DIR$/generate_trend.ipynb" />
+        <option value="$PROJECT_DIR$/generate_trend.py" />
       </list>
     </option>
   </component>
@@ -257,12 +284,12 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.12425645" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12425645" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.194051" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19263457" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -297,14 +324,24 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/trend_features.py" />
-    <entry file="file://$PROJECT_DIR$/eurusd_analysis.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
+    <entry file="file://$PROJECT_DIR$/simpleNN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="6" selection-end-column="18" />
+          <folding>
+            <element signature="e#118#137#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/decisionTrees.ipynb">
+    <entry file="file://$PROJECT_DIR$/layeredNN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/layeredNN.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="3" />
@@ -318,34 +355,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/layeredNN.ipynb">
+    <entry file="file://$PROJECT_DIR$/decisionTrees.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="3" />
+          <selected id="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/layeredNN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simpleNN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="6" selection-end-column="18" />
-          <folding>
-            <element signature="e#118#137#0" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/eurusd_analysis.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trend_features.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="8" />
+          <selected id="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generate_trend.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generate_trend.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
         </state>
       </provider>
     </entry>
