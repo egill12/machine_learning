@@ -109,6 +109,7 @@
         <entry file="file://$PROJECT_DIR$/trend_features.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
+<<<<<<< HEAD
               <selected id="7" />
             </state>
           </provider>
@@ -128,6 +129,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
               <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+=======
+              <selected id="2" />
+>>>>>>> 475849432ed1be252d806c3ace35de3c47cda3b7
             </state>
           </provider>
         </entry>
@@ -186,20 +190,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -289,7 +280,11 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19263457" />
+=======
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19263457" />
+>>>>>>> 475849432ed1be252d806c3ace35de3c47cda3b7
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -359,6 +354,7 @@
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="7" />
+<<<<<<< HEAD
         </state>
       </provider>
     </entry>
@@ -373,6 +369,15 @@
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="7" />
+=======
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/eurusd_analysis.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+>>>>>>> 475849432ed1be252d806c3ace35de3c47cda3b7
         </state>
       </provider>
     </entry>
@@ -380,6 +385,7 @@
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="2" />
+<<<<<<< HEAD
         </state>
       </provider>
     </entry>
@@ -387,6 +393,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+=======
+>>>>>>> 475849432ed1be252d806c3ace35de3c47cda3b7
         </state>
       </provider>
     </entry>
