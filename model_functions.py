@@ -5,9 +5,6 @@ This file contains the neccessary modules for creating the training and testing 
 '''
 
 # import neccessary modules to perpare the data for entry to ML model.
-from keras.models import Sequential
-from keras.layers import LSTM
-from keras.layers import Dense
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -106,8 +103,7 @@ def get_accuracy(predicted, test_target ):
     '''
     :return: the prediction accuracy of our model
     '''
-    true_class = [np.sign(i[0]) for i in test_target]
-    return accuracy_score(true_class, predicted)
+    return accuracy_score(test_target, predicted)
 
 def get_scaled_returns():
     '''
