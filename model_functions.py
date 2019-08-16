@@ -112,6 +112,13 @@ def get_scaled_returns():
     '''
     pass
 
+def erf(row_value):
+    ''''
+    This applies the error function to smoooth the risk adjusted return prediction
+    mapps all numbers from -1 to + 1
+    '''
+    return (2*(1/(1 + np.exp(-row_value)))-1)
+
 def main():
     pass
 
