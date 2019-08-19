@@ -10,7 +10,7 @@ from model_functions import get_accuracy, erf, standardise_data, calculate_targe
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn import metrics
 
-def decision_tree(train, test,use_classifier, use_risk_adjusted,ntree, max_features):
+def decision_tree(train, test,use_classifier, use_risk_adjusted,ntree, max_features, max_depth):
     # take the
     X = train.iloc[:, :-1]
     X_test = test.iloc[:, :-1]
@@ -29,11 +29,11 @@ def decision_tree(train, test,use_classifier, use_risk_adjusted,ntree, max_featu
     Y_test = Y_test.replace(np.nan, 0)
     Y_test = Y_test.replace(np.inf, 0)
     if use_classifier:
-        RF = RandomForestClassifier(n_estimators=ntree, max_features= max_features, verbose=1)
+        RF = RandomForestClassifier(n_estimators=ntree, max_features= max_features,max_depth = max_depth, verbose=1)
         # clf = tree.DecisionTreeClassifier(max_leaf_nodes = 6, max_depth = 8)
     else:
         # ass in code for regressino classifier
-        RF = RandomForestRegressor(n_estimators=ntree, max_features= max_features, verbose=1)
+        RF = RandomForestRegressor(n_estimators=ntree, max_features= max_features, max_depth = max_depth,verbose=1)
     RF.fit(X, Y)
     # run training on the test data
     results = RF.predict(X_test)
