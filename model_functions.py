@@ -14,7 +14,7 @@ from sklearn.metrics import confusion_matrix
 features_to_use = ["spot_v_HF", "spot_v_MF", "spot_v_LF", "HF_ema_diff",
                    "MF_ema_diff", "LF_ema_diff", "LDN", "NY", "Asia", "target"]
 
-def create_train_test_file(data_file, data_size, test_split, test_buffer):
+def create_train_test_file(data_file, data_size, test_split, test_buffer,concat_results):
     '''
     This module will create the traingin and testing files to be used in the ML RNN model.
     :return: training and testing data fils.
@@ -27,10 +27,19 @@ def create_train_test_file(data_file, data_size, test_split, test_buffer):
         data_size = int(data_file.shape[0]*0.9)
         # adding a buffer of 5 forward steps before we start trading on test data
         test_size = data_file.shape[0] - (data_size + test_buffer)
-    test_size = int(data_size*test_split)
+    else:
+        if test_split < 1:
+            test_size = int(data_size*test_split)
+        else:
+            # if a whole number, this is accepted as the number of test points to use.
+            test_size = test_split
     # training size is the first x data points
-    train_original = data_file.iloc[:int(data_size), :].reset_index(drop= False)  # eurusd_train.iloc[-DATA_SIZE:,:]
-    test_original = data_file.iloc[int(data_size) + 5: (int(data_size) + int(test_size)), :].reset_index(drop= False)
+    if concat_results:
+        train_original = data_file.iloc[:(test_size-test_buffer), :].reset_index(drop= False)
+        test_original = data_file.iloc[-test_size:, :].reset_index(drop= False)
+    else:
+        train_original = data_file.iloc[:int(data_size), :].reset_index(drop= False)  # eurusd_train.iloc[-DATA_SIZE:,:]
+        test_original = data_file.iloc[int(data_size) + test_buffer: (int(data_size) + int(test_size)), :].reset_index(drop= False)
     return train_original , test_original
 
 def standardise_data(dataset, full_cols, standardised_cols,window):
@@ -118,6 +127,17 @@ def erf(row_value):
     mapps all numbers from -1 to + 1
     '''
     return (2*(1/(1 + np.exp(-row_value)))-1)
+
+def get_total_data_needed(test_split, data_size,test_buffer):
+    '''
+
+    :param test_split:
+    :return: the data size needed for all computations
+    '''
+    if test_split <1 :
+        return int(data_size*(1 + test_split)) + test_buffer
+    else:
+        return int(data_size + test_split + test_buffer)
 
 def main():
     pass
