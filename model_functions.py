@@ -35,7 +35,10 @@ def create_train_test_file(data_file, data_size, test_split, test_buffer,concat_
             test_size = test_split
     # training size is the first x data points
     if concat_results:
-        train_original = data_file.iloc[:(test_size-test_buffer), :].reset_index(drop= False)
+        # provide data up till the test data zone
+        train_data = test_size + test_buffer
+        train_original = data_file.iloc[train_data:, :].reset_index(drop= False)
+        # provide data in the last x points of test data
         test_original = data_file.iloc[-test_size:, :].reset_index(drop= False)
     else:
         train_original = data_file.iloc[:int(data_size), :].reset_index(drop= False)  # eurusd_train.iloc[-DATA_SIZE:,:]

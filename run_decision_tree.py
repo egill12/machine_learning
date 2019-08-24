@@ -8,7 +8,7 @@ import datetime
 from sklearn import tree
 from model_functions import get_accuracy, erf, standardise_data, calculate_target
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn import metrics
+from sklearn import metrics, svm
 
 def decision_tree(train, test,use_classifier, use_risk_adjusted,ntree, max_features, max_depth):
     # take the
@@ -29,11 +29,11 @@ def decision_tree(train, test,use_classifier, use_risk_adjusted,ntree, max_featu
     Y_test = Y_test.replace(np.nan, 0)
     Y_test = Y_test.replace(np.inf, 0)
     if use_classifier:
-        RF = RandomForestClassifier(n_estimators=ntree, max_features= max_features,max_depth = max_depth, verbose=1)
+        RF = RandomForestClassifier(n_estimators=ntree, max_features= max_features,max_depth = max_depth, verbose=0)
         # clf = tree.DecisionTreeClassifier(max_leaf_nodes = 6, max_depth = 8)
     else:
-        # ass in code for regressino classifier
-        RF = RandomForestRegressor(n_estimators=ntree, max_features= max_features, max_depth = max_depth,verbose=1)
+        # ass in code for regresion classifier
+        RF = RandomForestRegressor(n_estimators=ntree, max_features= max_features, max_depth = max_depth,verbose=0)
     RF.fit(X, Y)
     # run training on the test data
     results = RF.predict(X_test)
@@ -106,7 +106,43 @@ def initialise_process(file_location, trade_horizon, window, use_risk_adjusted):
     data_normed['Date'] = data_file['Date'].iloc[window:]
     data_normed['CCY'] = data_file['CCY'].iloc[window:]
     data_normed['logret'] = data_file['logret'].iloc[window:]
-    return data_normed, model_features
+    return data_normed.reset_index(drop = False), model_features
+
+def run_svm_model(train, test,use_classifier, use_risk_adjusted,kernel,cost):
+    # This duplicates alot of code in the Dec tree module, so maybe think about removing these duplications
+    X = train.iloc[:, :-1]
+    X_test = test.iloc[:, :-1]
+    if use_classifier:
+        Y = train["target"].apply(np.sign)
+        Y_test = test["target"].apply(np.sign)
+    else:
+        # using risk adjusted return- oontinous value
+        Y = train["target"]
+        Y_test = test["target"]
+    # clean the data and nan values
+    X = X.replace(np.nan, 0)
+    Y = Y.replace(np.nan, 0)
+    Y = Y.replace(np.inf, 0)
+    X_test = X_test.replace(np.nan, 0)
+    Y_test = Y_test.replace(np.nan, 0)
+    Y_test = Y_test.replace(np.inf, 0)
+    if use_classifier:
+        SVM = svm.SVC(kernel=kernel, C = cost)
+        # clf = tree.DecisionTreeClassifier(max_leaf_nodes = 6, max_depth = 8)
+    else:
+        # ass in code for regresion classifier
+        SVM = svm.SVR(kernel= kernel, C = cost)
+    SVM.fit(X, Y)
+    # run training on the test data
+    results = SVM.predict(X_test)
+    # The % threshold needed to trigger a signal either way
+    if use_risk_adjusted:
+        acc_score = metrics.mean_squared_error(Y_test, results)  # cant get a classifier, so need to print simple mse
+    else:
+        acc_score = get_accuracy(Y_test, results)
+    return (results, acc_score)
+
+
 
 def main():
     '''
