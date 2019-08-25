@@ -154,7 +154,7 @@ def get_pca_features(train,test, features_to_standardise, use_pca):
     pca = pca.fit(train[features_to_standardise])
     pca_train = pca.transform(train[features_to_standardise])
     pca_test = pca.transform(test[features_to_standardise])
-    labels = ['PC%s' % i for i in range(1, use_pca)]
+    labels = ['PC%s' % i for i in range(1, use_pca + 1)]
     # add the pc values to the train and test model
     pc_number = 0
     for label in labels:

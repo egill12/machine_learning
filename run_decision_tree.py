@@ -108,8 +108,8 @@ def initialise_process(file_location, trade_horizon, window, use_risk_adjusted, 
     data_normed['logret'] = data_file['logret'].iloc[window:]
     if use_pca > 0:
         # if we are using pca features, then model features need only to be PC1 and PC2 etc plus the target
-        model_features = ['PC%s' %i for i in range(1,use_pca)]
-        model_features.append["target"]
+        model_features = ['PC%s' %i for i in range(1,use_pca+1)]
+        model_features.append("target")
     return data_normed.reset_index(drop = True), model_features, features_to_standardise
 
 def run_svm_model(train, test,use_classifier, use_risk_adjusted,kernel,cost):
