@@ -106,7 +106,7 @@ def initialise_process(file_location, trade_horizon, window, use_risk_adjusted):
     data_normed['Date'] = data_file['Date'].iloc[window:]
     data_normed['CCY'] = data_file['CCY'].iloc[window:]
     data_normed['logret'] = data_file['logret'].iloc[window:]
-    return data_normed.reset_index(drop = False), model_features
+    return data_normed.reset_index(drop = True), model_features
 
 def run_svm_model(train, test,use_classifier, use_risk_adjusted,kernel,cost):
     # This duplicates alot of code in the Dec tree module, so maybe think about removing these duplications

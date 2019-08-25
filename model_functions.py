@@ -36,13 +36,13 @@ def create_train_test_file(data_file, data_size, test_split, test_buffer,concat_
     # training size is the first x data points
     if concat_results:
         # provide data up till the test data zone
-        train_data = test_size + test_buffer
-        train_original = data_file.iloc[train_data:, :].reset_index(drop= False)
+        train_data = int(data_file.shape[0]) - (test_size + test_buffer)
+        train_original = data_file.iloc[:train_data, :].reset_index(drop= True)
         # provide data in the last x points of test data
-        test_original = data_file.iloc[-test_size:, :].reset_index(drop= False)
+        test_original = data_file.iloc[-test_size:, :].reset_index(drop= True)
     else:
-        train_original = data_file.iloc[:int(data_size), :].reset_index(drop= False)  # eurusd_train.iloc[-DATA_SIZE:,:]
-        test_original = data_file.iloc[int(data_size) + test_buffer: (int(data_size) + int(test_size)), :].reset_index(drop= False)
+        train_original = data_file.iloc[:int(data_size), :].reset_index(drop= True)  # eurusd_train.iloc[-DATA_SIZE:,:]
+        test_original = data_file.iloc[int(data_size) + test_buffer: (int(data_size) + int(test_size)), :].reset_index(drop= True)
     return train_original , test_original
 
 def standardise_data(dataset, full_cols, standardised_cols,window):
