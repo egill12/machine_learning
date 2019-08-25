@@ -10,9 +10,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+from sklearn.decomposition import PCA
 
-features_to_use = ["spot_v_HF", "spot_v_MF", "spot_v_LF", "HF_ema_diff",
-                   "MF_ema_diff", "LF_ema_diff", "LDN", "NY", "Asia", "target"]
 
 def create_train_test_file(data_file, data_size, test_split, test_buffer,concat_results):
     '''
@@ -141,6 +140,32 @@ def get_total_data_needed(test_split, data_size,test_buffer):
         return int(data_size*(1 + test_split)) + test_buffer
     else:
         return int(data_size + test_split + test_buffer)
+
+def get_pca_features(train,test, features_to_standardise, use_pca):
+    '''
+    This file outputs the PCA vectors of the model to the number of features needed.
+    :param data_file:
+    :param model_features:
+    :param output_feature:
+    :return:
+    '''
+    pca = PCA(n_components=use_pca)
+    # find the PCs
+    pca = pca.fit(train[features_to_standardise])
+    pca_train = pca.transform(train[features_to_standardise])
+    pca_test = pca.transform(test[features_to_standardise])
+    labels = ['PC%s' % i for i in range(1, use_pca)]
+    # add the pc values to the train and test model
+    pc_number = 0
+    for label in labels:
+        train[label] = pd.DataFrame(pca_train[:,pc_number])
+        test[label] = pd.DataFrame(pca_test[:, pc_number])
+        pc_number += 1
+    # Find the variance explained within each PC
+    var_exp = pca.explained_variance_ratio_
+    # return train , test and var explained of the pca
+    return train, test, var_exp
+
 
 def main():
     pass

@@ -80,7 +80,7 @@ def update_performance(data_size,ntree, acc_score , information_ratio, run_time,
     performance_store['test_date_st'].append(test_date)
     return pd.DataFrame(performance_store)
 
-def initialise_process(file_location, trade_horizon, window, use_risk_adjusted):
+def initialise_process(file_location, trade_horizon, window, use_risk_adjusted, use_pca):
     '''
     This re freshes the whole data set as needed by the ipython process
     this is the function to modify if you want different features in the model.
@@ -106,7 +106,11 @@ def initialise_process(file_location, trade_horizon, window, use_risk_adjusted):
     data_normed['Date'] = data_file['Date'].iloc[window:]
     data_normed['CCY'] = data_file['CCY'].iloc[window:]
     data_normed['logret'] = data_file['logret'].iloc[window:]
-    return data_normed.reset_index(drop = True), model_features
+    if use_pca > 0:
+        # if we are using pca features, then model features need only to be PC1 and PC2 etc plus the target
+        model_features = ['PC%s' %i for i in range(1,use_pca)]
+        model_features.append["target"]
+    return data_normed.reset_index(drop = True), model_features, features_to_standardise
 
 def run_svm_model(train, test,use_classifier, use_risk_adjusted,kernel,cost):
     # This duplicates alot of code in the Dec tree module, so maybe think about removing these duplications
