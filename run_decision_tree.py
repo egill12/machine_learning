@@ -91,7 +91,7 @@ def initialise_process(file_location, trade_horizon, window, use_risk_adjusted, 
     ########################### Set Model Paramaters #############################
     # this looks back over a set period as the memory for the LSTM
     model_features = ["spot_v_HF", "spot_v_MF", "spot_v_LF", "HF_ema_diff",
-                      "MF_ema_diff", "LF_ema_diff", "LDN", "NY", "Asia", "target"]
+                      "MF_ema_diff", "LF_ema_diff", "target"] #  "LDN", "NY", "Asia" removed
     ################### Standardise Entire Dataset using rolling lookback windows ###############
     features_to_standardise = ["spot_v_HF", "spot_v_MF", "spot_v_LF", "HF_ema_diff",
                                "MF_ema_diff", "LF_ema_diff"]
@@ -145,6 +145,21 @@ def run_svm_model(train, test,use_classifier, use_risk_adjusted,kernel,cost):
     else:
         acc_score = get_accuracy(Y_test, results)
     return (results, acc_score)
+
+def set_params_random_forests():
+    '''
+    This is the control center for all the params that need to be set in the RF  modules
+    :return: return all params as they have been set here
+    '''
+    ########################### Set Model Paramaters #############################
+    param_dict = {"ntrees" : [150], "max_features" : 3, "test_buffer" : 5, "max_depth" : 30 , "data_size" : 15000 ,
+                  "concat_results" : False, "test_split" : 0.25, "thold" : 0.55, "window" : 17500, "trade_horizon" : 24,
+                  "use_risk_adjusted" : False , "use_binary" : False, "use_classifier" : True, "use_pca" : 0}
+    # this looks back over a set period as the memory for the LSTM
+      # [i for i in range(25,301,25)] # [21, 66]
+    # if running pca, max features can only be same or less than the full total of features
+    return param_dict
+
 
 
 
