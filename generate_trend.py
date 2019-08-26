@@ -28,7 +28,7 @@ def get_trendy_data(n_samples,trend_strength,pct_stdev,CCY_COL, short, medium, l
     '''
     trendy_df = generate_trend(n_samples, trend_strength, pct_stdev)
     ccy_data = trends_features(trendy_df, CCY_COL, short, medium, long, longest, medium_multiplier, long_multplier)
-    ccy_data['spot'] = trendy_df['trend']
+    ccy_data['CCY'] = trendy_df['trend']
     # need to replace log ret with simpel return
-    ccy_data['logret'] = trendy_df['trend'] - trendy_df['trend'].shift(1)
+    ccy_data['logret'] = trendy_df['CCY'] - trendy_df['CCY'].shift(1)
     return ccy_data.replace(np.nan, 0)

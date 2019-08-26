@@ -80,7 +80,7 @@ def update_performance(data_size,ntree, acc_score , information_ratio, run_time,
     performance_store['test_date_st'].append(test_date)
     return pd.DataFrame(performance_store)
 
-def initialise_process(file_location, trade_horizon, window, use_risk_adjusted, use_pca):
+def initialise_process(file_location, trade_horizon, window, use_risk_adjusted, use_pca,use_random_train_data ):
     '''
     This re freshes the whole data set as needed by the ipython process
     this is the function to modify if you want different features in the model.
@@ -91,7 +91,7 @@ def initialise_process(file_location, trade_horizon, window, use_risk_adjusted, 
     ########################### Set Model Paramaters #############################
     # this looks back over a set period as the memory for the LSTM
     model_features = ["spot_v_HF", "spot_v_MF", "spot_v_LF", "HF_ema_diff",
-                      "MF_ema_diff", "LF_ema_diff", "target"] #  "LDN", "NY", "Asia" removed
+                      "MF_ema_diff", "LF_ema_diff", "target"] #  "LDN", "NY", "Asia" removed, # target must be kept at the end
     ################### Standardise Entire Dataset using rolling lookback windows ###############
     features_to_standardise = ["spot_v_HF", "spot_v_MF", "spot_v_LF", "HF_ema_diff",
                                "MF_ema_diff", "LF_ema_diff"]
@@ -102,8 +102,9 @@ def initialise_process(file_location, trade_horizon, window, use_risk_adjusted, 
     data_file['target'] = data_file["target"].replace(-np.inf, 0)
     # roughly 3 yrs of data slightly less actually
     data_normed = standardise_data(data_file, model_features, features_to_standardise, window)
-    # add extra features non standardised
-    data_normed['Date'] = data_file['Date'].iloc[window:]
+    # add extra features non standardised, check we are using random or non random data
+    if not use_random_train_data:
+        data_normed['Date'] = data_file['Date'].iloc[window:]
     data_normed['CCY'] = data_file['CCY'].iloc[window:]
     data_normed['logret'] = data_file['logret'].iloc[window:]
     if use_pca > 0:
@@ -152,9 +153,10 @@ def set_params_random_forests():
     :return: return all params as they have been set here
     '''
     ########################### Set Model Paramaters #############################
-    param_dict = {"ntrees" : [150], "max_features" : 3, "test_buffer" : 5, "max_depth" : 30 , "data_size" : 15000 ,
-                  "concat_results" : False, "test_split" : 0.25, "thold" : 0.55, "window" : 17500, "trade_horizon" : 24,
-                  "use_risk_adjusted" : False , "use_binary" : False, "use_classifier" : True, "use_pca" : 0}
+    param_dict = {"ntrees" : [150], "max_features" : 5, "test_buffer" : 5, "max_depth" : 30 , "data_size" : 15000 ,
+                  "concat_results" : False, "test_split" : 0.25, "thold" : 0.55, "window" : 1000, "trade_horizon" : 24,
+                  "use_risk_adjusted" : False , "use_binary" : False, "use_classifier" : True, "use_pca" : 0,
+                  "use_separated_chunk" : False, "use_random_train_data" : True}
     # this looks back over a set period as the memory for the LSTM
       # [i for i in range(25,301,25)] # [21, 66]
     # if running pca, max features can only be same or less than the full total of features
