@@ -170,6 +170,12 @@ def set_params_svm():
     '''
     svm_dict = {'kernel':"rbf" , "cost": [1]}
     return svm_dict
+def set_params_LSTM():
+    '''
+    Additional params only applicable to the RF code
+    :return:
+    '''
+    lstm_dict = {'EPOCH' : 350, 'first_layer': 4, 'second_layer': 1, 'look_back' : 66 }
 
 def main():
     '''
