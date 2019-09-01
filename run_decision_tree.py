@@ -157,7 +157,7 @@ def set_params_random_forests():
     param_dict = {"ntrees" : [150], "max_features" : 5, "test_buffer" : 5, "max_depth" : 30 , "data_size" : 15000 ,
                   "concat_results" : False, "test_split" : 0.25, "thold" : 0.55, "window" : 1000, "trade_horizon" : 24,
                   "use_risk_adjusted" : True , "use_binary" : False, "use_classifier" : False, "use_pca" : 0,
-                  "use_separated_chunk" : False, "use_random_train_data" : True}
+                  "use_separated_chunk" : False, "use_random_train_data" : True, "use_RF": False}
     # this looks back over a set period as the memory for the LSTM
       # [i for i in range(25,301,25)] # [21, 66]
     # if running pca, max features can only be same or less than the full total of features
