@@ -176,7 +176,14 @@ def set_params_LSTM():
     Additional params only applicable to the RF code
     :return:
     '''
-    lstm_dict = {'EPOCH' : 350, 'first_layer': 4, 'second_layer': 1, 'look_back' : 66 }
+    return {'EPOCH' : 350, 'first_layer': 4, 'second_layer': 1, 'look_back' : 66 }
+
+def set_params_trend_estimate():
+    '''
+    Additional params only applicable to the RF code
+    :return:
+    '''
+    return {'trade_horizon' : 21, 'std_window': 260, 'train_size': 0.5, 'test_split' : 1, 'test_buffer': 1 }
 
 def main():
     '''

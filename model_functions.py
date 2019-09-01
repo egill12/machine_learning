@@ -27,7 +27,7 @@ def create_train_test_file(data_file, data_size, test_split, test_buffer,concat_
         # adding a buffer of 5 forward steps before we start trading on test data
         test_size = data_file.shape[0] - (data_size + test_buffer)
     else:
-        if test_split < 1:
+        if test_split <= 1:
             test_size = int(data_size*test_split)
         else:
             # if a whole number, this is accepted as the number of test points to use.
