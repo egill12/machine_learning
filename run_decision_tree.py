@@ -168,8 +168,9 @@ def set_params_svm():
     Additional params only applicable to the svm code.
     :return:
     '''
-    svm_dict = {'kernel':"rbf" , "cost": [1]}
+    svm_dict = {'kernel':"rbf" , "cost": [2]}
     return svm_dict
+
 def set_params_LSTM():
     '''
     Additional params only applicable to the RF code
