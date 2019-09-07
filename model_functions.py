@@ -46,12 +46,12 @@ def create_train_test_file(data_file, data_size, test_split, test_buffer,concat_
 
 def standardise_data(dataset, full_cols, standardised_cols,window):
     '''
-    This function computes the standardised returns on a rolling basis backwards.
-    This si most realistic in term sof a trading strategy and also means the test data is standardised on the correct basis using the
+    This function computes the standardised returns on a rolling basis looking backwards over the window specified.
+    This is the most realistic in terms of a trading strategy and also means the test data is standardised on the correct basis using the
     latest data available at each timestep.
     :param dataframe:
     :param cols:
-    :return:
+    :return: standardised dataframe of values
     '''
     train_standardised = dataset[standardised_cols].subtract(dataset[standardised_cols].rolling(window).mean())
     train_standardised = train_standardised.divide(dataset[standardised_cols].rolling(window).std())
