@@ -123,7 +123,7 @@ def run_svm_model(train, test,use_classifier, use_risk_adjusted,kernel,cost):
         Y = train["target"].apply(np.sign)
         Y_test = test["target"].apply(np.sign)
     else:
-        # using risk adjusted return- oontinous value
+        # using risk adjusted return- continous value
         Y = train["target"]
         Y_test = test["target"]
     # clean the data and nan values
@@ -157,7 +157,7 @@ def set_params_random_forests():
     ########################### Set Model Paramaters #############################
     param_dict = {"ntrees" : [200], "max_features" : 4, "test_buffer" : 5, "max_depth" : 30 , "data_size" : 15000 ,
                   "concat_results" : False, "test_split" : 0.25, "thold" : 0.55, "window" : 1000, "trade_horizon" : 24,
-                  "use_risk_adjusted" : True , "use_binary" : False, "use_classifier" : False, "use_pca" : 0,
+                  "use_risk_adjusted" : True , "use_binary" : False, "use_classifier" : True, "use_pca" : 0,
                   "use_separated_chunk" : False, "use_random_train_data" : True, "use_RF": True}
     # this looks back over a set period as the memory for the LSTM
       # [i for i in range(25,301,25)] # [21, 66]
@@ -169,7 +169,7 @@ def set_params_svm():
     Additional params only applicable to the svm code.
     :return:
     '''
-    svm_dict = {'kernel':"rbf" , "cost": [1]}
+    svm_dict = {'kernel':"linear" , "cost": [1]}
     return svm_dict
 
 def set_params_LSTM():
@@ -184,7 +184,7 @@ def set_params_trend_estimate():
     Additional params only applicable to the RF code
     :return:
     '''
-    return {'trade_horizon' : 21, 'std_window': 260, 'train_size': 0.6, 'test_split' : 1, 'test_buffer': 1 }
+    return {'trade_horizon' : 21, 'std_window': 260, 'train_size': 0.92, 'test_split' : 1, 'test_buffer': 1 }
 
 def main():
     '''
