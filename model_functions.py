@@ -10,6 +10,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+from scipy.stats import norm
 from sklearn.decomposition import PCA
 
 
@@ -165,6 +166,35 @@ def get_pca_features(train,test, features_to_standardise, use_pca):
     var_exp = pca.explained_variance_ratio_
     # return train , test and var explained of the pca
     return train, test, var_exp
+
+def max_exp_sharpe(avg_sharpe, var_sharpe, ntrials):
+    '''
+    Link to code is from --> https://gmarti.gitlab.io/qfin/2018/05/30/deflated-sharpe-ratio.html
+    :param mean_sharpe:
+    :param var_sharpe:
+    :param nb_trials:
+    :return:
+    '''
+    gamma = 0.5772156649015328606
+    e = np.exp(1)
+    return avg_sharpe + np.sqrt(var_sharpe) * (
+        (1 - gamma) * norm.ppf(1 - 1 / ntrials) + gamma * norm.ppf(1 - 1 / (ntrials * e)))
+
+def dsr(expected_sharpe,sharpe_var,ntrials,sample_length,skew,kurtosis):
+    '''
+    Calculate the deflated sharpe
+    :param expected_sharpe:
+    :param sharpe_var:
+    :param ntrials:
+    :param sample_length:
+    :param skew:
+    :param kurtosis:
+    :return:
+    '''
+    SR_zero = max_exp_sharpe(0, sharpe_var, ntrials)
+
+    return norm.cdf(((expected_sharpe - SR_zero) * np.sqrt(sample_length - 1))
+                    / np.sqrt(1 - skew * expected_sharpe + ((kurtosis - 1) / 4) * expected_sharpe ** 2))
 
 
 def main():
