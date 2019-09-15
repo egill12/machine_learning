@@ -16,34 +16,40 @@ from sklearn.decomposition import PCA
 
 def create_train_test_file(data_file, data_size, test_split, test_buffer,concat_results):
     '''
-    This module will create the traingin and testing files to be used in the ML RNN model.
+    This module will create the training and testing files to be used in the ML models.
+    :param data_file: DF with price data
+    param: data_size: size of the training perios
+    param: test_split: size of the testing period
+    param: test_buffer: the time between training and testing, to ensure no data leakage from train to test.
+    param: concat_results: If True, we then use a walk forward type methodology for training and testing.
     :return: training and testing data fils.
     '''
-    # use a long term rolling standardisation window
-
-    # How large should the training data be?
+    # Check we have enough data to train with compared to the data size
     if data_size > data_file.shape[0]:
         # Overwrite the data_length to be 90% f file, with remaining 10% as train
         data_size = int(data_file.shape[0]*0.9)
         # adding a buffer of 5 forward steps before we start trading on test data
         test_size = data_file.shape[0] - (data_size + test_buffer)
     else:
+        # if a percentage test split is provided , then transform this to actual no. of points.
         if test_split <= 1:
             test_size = int(data_size*test_split)
         else:
             # if a whole number, this is accepted as the number of test points to use.
             test_size = test_split
-    # training size is the first x data points
+    # training size is the first x data points and the test data is appended onto the train data
+    # such that we use a walk forward testing framework
     if concat_results:
         # provide data up till the test data zone
         train_data = int(data_file.shape[0]) - (test_size + test_buffer)
-        train_original = data_file.iloc[:train_data, :].reset_index(drop= True)
-        # provide data in the last x points of test data
-        test_original = data_file.iloc[-test_size:, :].reset_index(drop= True)
+        train_original = data_file.iloc[:train_data, :].reset_index(drop = True)
+        # provide data in the last x points of test data available
+        test_original = data_file.iloc[-test_size:, :].reset_index(drop = True)
     else:
-        train_original = data_file.iloc[:int(data_size), :].reset_index(drop= True)  # eurusd_train.iloc[-DATA_SIZE:,:]
+        train_original = data_file.iloc[:int(data_size), :].reset_index(drop= True)
         test_original = data_file.iloc[int(data_size) + test_buffer: (int(data_size) + int(test_size)), :].reset_index(drop= True)
-    return train_original , test_original
+    # return two separate data files for training/testing
+    return train_original, test_original
 
 def standardise_data(dataset, full_cols, standardised_cols,window):
     '''

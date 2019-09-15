@@ -6,6 +6,7 @@
  \usepackage{cite}
 \usepackage{url}
 \usepackage{titlesec}
+\usepackage{xcolor}
 %% Define a new 'leo' style for the package that will use a smaller font.
 \makeatletter
 \def\url@leostyle{%
@@ -25,12 +26,12 @@
 \usepackage{caption}
 \setcounter{secnumdepth}{4}
 \usepackage{listings}
-\usepackage{color}
-
+\usepackage{xcolor}
+\definecolor{brickred}{rgb}{0.45, 0.07, 0.07}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
-
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 \lstset{frame=tb,
   language=Python,
   aboveskip=3mm,
@@ -58,7 +59,7 @@
 	%	Headings
 	%------------------------------------------------
 	
-	\textsc{\Large Birkbeck College, University of London}\\[1.5cm] % Main heading such as the name of your university/college
+	\textsc{\Large \textcolor{brickred}{Birkbeck College, University of London}}\\[1.5cm] % Main heading such as the name of your university/college
 	
 	\textsc{\Large MSc. Data Science Master Thesis}\\[0.5cm] % Major heading such as course name
 		
@@ -80,7 +81,7 @@
 		\begin{flushleft}
 			\large
 			\textit{Author}\\
-			Edward \textsc{Gill} % Your name
+			\textcolor{brickred}{Edward \textsc{Gill}} % Your name
 		\end{flushleft}
 	\end{minipage}
 	~
@@ -88,14 +89,22 @@
 		\begin{flushright}
 			\large
 			\textit{Supervisor}\\
-			Dr. George \textsc{Magoulas} % Supervisor's name
+			\textcolor{brickred}{Dr. George \textsc{Magoulas}} % Supervisor's name
 		\end{flushright}
 	\end{minipage}
 	
 	% If you don't want a supervisor, uncomment the two lines below and comment the code above
 	%{\large\textit{Author}}\\
 	%John \textsc{Smith} % Your name
-	
+\vspace{25mm}
+
+\centerline{\textit{A thesis submitted in fulfillment of the requirements} }      
+\centerline{\textit{for the degree of MSc Data Science}} 
+\centerline{\textit{in the}}
+
+\begin{center}
+\textcolor{brickred}{Department of Computer Science and Information Systems}
+\end{center}
 	%------------------------------------------------
 	%	Date
 	%------------------------------------------------
@@ -107,6 +116,7 @@
 	%------------------------------------------------
 	%	Logo
 	%------------------------------------------------
+
 This proposal is substantially the result of my own work, expressed in my own words, except where explicitly indicated in the text. I give my permission for it to be submitted to the JISC Plagiarism Detection Service.
 The proposal may be freely copied and distributed provided the source is explicitly acknowledged.
 	%\vfill\vfill
@@ -118,7 +128,7 @@ The proposal may be freely copied and distributed provided the source is explici
 	
 \end{titlepage}
 \clearpage
-\vspace{5mm}
+\vspace{8mm}
 \vfill
 \begin{abstract}
 \par
@@ -194,34 +204,37 @@ The project is structured as followed,
 \item Section \ref{ProbDes} provides a description of the underlying problem of applying machine learning (ML) to financial timeseries.
 \item Section \ref{LitRev} provides an overview of the latest research being undertaking in the financial machine learning domain.
 \item Section \ref{method} dives into the data set needed and the specifications of the system architectures used in this project alongside the model features used and the reason for their selection.
-\item Section \ref{ProjectD} delves into the core of the model structure and how two separate methods are combined to create the full life cycle of the strategy.
-\item Section \ref{results} looks into the performance metrics of each model as well as the final model architecture used and the structure of that model.
-\item Section  \ref{discussion} looks at the main takeaways of the results and offers thought on the direction for future work that should be undertaken when applying machine learning models to financial trading. 
-\item Section \ref{conclusions} concludes with final thoughts on the project overall and highlights some interesting points which undertaking the project has uncovered. 
+\item Section \ref{ProjectD} delves into the core of the model structure and how two separate trading architectures are combined to create the a full stack trading strategy.
+\item Section \ref{results} analyses the performance metrics of each model  and discusses the main takeaways of the results and offers thought on the direction for future work that should be undertaken when applying machine learning models to financial trading.
+\item Section \ref{conclusions} concludes with final thoughts on the project overall and highlights some interesting points which were revealed as the project progressed. 
 \end{itemize}
 
 
 \section{Description of the Problem} \label{ProbDes}
 
-The problem to overcome when applying ML to trading is the level of signal to noise in the data. ML practitioners in finance face a very challenging task as the past is rarely a perfect guide to the future. For example in image processing, if a neural network is fed a matrix of pixels which form the image of cows, and then trains based on the historical patterns it observes, the trained neural network will be able to identify a cow with high classification rates. However, if we provide an image of a mouse, the model likely classifies the mouse as a small cow due to the historical patterns that have been learned. Machine learning models, no matter how complex or sophisticated the underlying features are, require regularity for prediction. In finance, you can learn all the historical patterns and probabilities surrounding an asset and the model may even perform well in the testing period, however, in finance the rules can change rapidly. Structural breaks can and do occur in past relationships. Even the most robust artificial intelligence would likely not survive the impact of a 280 character tweet from Donald Trump entirely changing the rules of the game. Thus, the approach taken in this project is to narrow the scope of the is required from the machine learning model. This project asks each model to perform a very clear narrowly defined  task which is to recognise the patterns of a trending asset price. This could be considered akin to using ML models in finance like a surgical scalpel rather than a hammer for every nail.
+The problem to overcome when applying ML to trading is the level of signal to noise in the data. ML practitioners in finance face a very challenging task as the past is rarely a perfect guide to the future. For example in image processing, if a neural network is fed a matrix of pixels which form the image of cows, and then trains based on the historical patterns it observes, the trained neural network will be able to identify a cow with high classification rates. However, if we provide an image of a mouse, the model likely classifies the mouse as a small cow due to the historical patterns that have been learned. Machine learning models, no matter how complex or sophisticated the underlying features are, require regularity for prediction. \newline In finance, you can learn all the historical patterns and probabilities surrounding an asset and the model may even perform well in the testing period, however, in finance market regimes can change rapidly. Structural breaks can and do occur in past relationships. Even the most robust artificially intelligent machines would likely not survive the impact of a 280 character tweet from Donald Trump entirely changing the rules of the game. Thus, the approach taken in this project is to narrow the scope of the problem which the ML model is required to solve. This project sets the main trading model a narrowly defined task to recognise the patterns of a trending asset price only. This could be considered akin to using ML models in finance like a surgical scalpel rather than a hammer for every nail.
 
-\par Correlations and patterns in markets can be extremely fickle, complex and dynamic in nature \cite{Camargo2013}. Why is this so one may ask? \par Well part of the issue lies in the efficiency of informational flow across markets, barriers to entry are much smaller than ten or twenty years ago and there has likely been a compression in the informational edge that smart money investors (such as hedge funds) previously have had\footnote{Not to mention the crack down on information sharing between investment banks and hedge funds} \cite{hedgefundRets}. The market price itself is a reflection of all these moving parts and thus even if a robust pattern has been found, it is likely to be arbitraged away as more market actors step in to trade away any mis-pricing \cite{Bartram2019}. This is quite literally like an image recognition model having to recognise cats which have the ability to morph into dogs.
+\subsection{Fickle Correlations in Financial Markets}
+Correlations and patterns in markets can be extremely fickle, complex and dynamic in nature \cite{Camargo2013}. Why is this so one may ask? Well part of the issue lies in the efficiency of informational flow across markets, barriers to entry are much smaller than ten or twenty years ago and there has likely been a compression in the informational edge that smart money investors (such as hedge funds) previously have had \cite{hedgefundRets}\footnote{Not to mention the crack down on information sharing between investment banks and hedge funds}. The market price itself is a reflection of all these moving parts and thus even if a robust pattern has been found, it is likely to be arbitraged away as more market actors step in to trade away any mis-pricing \cite{Bartram2019}. This is quite literally like an image recognition model having to recognise cats which have the ability to morph into dogs.
 \par
 One issue that is particularly pertinent in the financial domain is the issue of data dimensionality and the underlying size of each individual data set where even if there were fifty years of daily financial data available, it amounts to less than 20,000 data points\footnote{Assuming a 252 trading day calendar}. This means that one must think carefully before adding features to the model.\par The use of exhaustive grid search algorithms will simply overfit the model and should not be used. This is due to the fact when we change and search for optimal hyperparameters, given the number of possible variations and only one small set of live price points, the probability of finding a strategy by luck remains extremely high. Arnott et al. provide an example of a trading strategy which would have passed even the most stringent evaluation methods in both training, validation and testing phases which actually turned out to have been created using a ranking of stocks based on alphabetical ordering \cite{Arnott2018}.
+\par
+Given the inherent challenges faced when developing systematic trading strategies, one may wonder if creating a strategy based on machine learning methods is a fruitless endeavor. Due to the unique issues related to applying machine learning in the financial domain, this project took a different view on how best to use machine learning by first creating a model to only predict trends using price data and then allowing a second model to try to capture the likelihood of the current regime to be conducive to strong auto correlation in the price series (i.e identifying times when the chance of seeing a trend was high). This diversifies the trading model as now the problem of alternative/changing drivers is reduced, as the model only trades based on price momentum which can be driven by any factor. While the second model will increase the allocation of risk capital to the trend model based on the models predicted assessment of the probability distribution of future trend regimes.
+\clearpage
 
-Financial markets have been shown to exhibit heteroskedasticity in their returns \cite{Corhay1996} and as such, creating a robust systematic trading strategy relies on more than just a simple data input/signal output type of architecture. In trading systems, the classification of regimes and subsequent buy or sell signals must also be compared vs the expected value of the that trade. A model with an 80\% classification success rate will under perform if it mis-classifies the 20\% of samples which result in outsized asset moves. \par
-
-Given the inherent challenges faced when developing systematic trading strategies, one may wonder if creating a strategy based on machine learning methods is a fruitless endeavor.
-\newline Due to the unique issues related to applying machine learning in the financial domain, this project took a different view on how best to use machine learning by first creating a model to only predict trends using price data and then allowing a second model to try to capture the likelihood of auto correlation in the price series increasing. This diversifies the trading model as now the problem of alternative/changing drivers is reduced (as the model only trades previous price trend which could be driven by any factor) while the second model will increase the allocation of risk capital to the model when it deems the probability of trend working is high, thus it is trying to approximate the probability distribution of future trend regimes.
-
-
-\section{Literature Review}
+\section{Literature Review} \label{LitRev}
 
 
 \subsection{Heteroskedasticity in Financial Markets}
 
+Complex systems that continuously evolve make applying ML techniques in a way that results in a robust model very difficult \cite{Arnott2018}. Financial markets have been shown to exhibit heteroskedasticity in their returns \cite{Corhay1996} and as such, creating a robust systematic trading strategy relies on more than just a simple data input/signal output type of architecture. In trading systems, classification of regimes and subsequent buy or sell signals must also be compared vs the expected value of the that trade. A model with an 80\% classification success rate will under perform if it mis-classifies the the 20\% of samples which result in large moves in the asset. \par
+ The corollary of that is by only targeting classification of outliers you reduce your sample set and thereby reduce the statistical validity of the results. There is rarely a free lunch in financial markets and as such there will be no free lunch when using machine learning methods to predict financial times series. 
+\par
+For example, figure \ref{fig:beststockdays}, shows that missing out either the best or worst 25 days of the Standard and Poors 500 companies equity index (S\&P 500) over the last fifty years drastically changes the returns compared to always being invested \cite{bestdays}. Given that 25 trading days represents only 0.005\% of the total trading days, it shows the importance of being correctly positioned for outlier events and also the fact that one model can be severely impacted by one off or black swan type events \cite{Taleb2007}. Hence analysing simple classification or accuracy statistics alone when assessing model performance is not enough when applying ML to finance. Trend based models tend to exhibit positive skew as they can pick up and ride the wave on these types of outlier events \cite{posskew}.
+Previous research has centered on price based data possibly as it is easily available and also because it is one dataset that is likely to have higher frequency data available (\cite{Huang2005},\cite{Shen2012},\cite{Wang2014}). 
+
 \begin{figure}[h]
-    \centering
+    \centering\
 % below is where you put the acutal image name in the directory
 	\caption{Growth of \$100 Invested Since 1975}
     \includegraphics[width=0.6\textwidth]{beststockdays}    
@@ -230,16 +243,10 @@ Given the inherent challenges faced when developing systematic trading strategie
 	\caption*{\small Source: Market Watch\cite{bestdays}}
 \end{figure}
 
-Complex systems that continuously evolve make applying ML techniques in a way that results in a robust model very difficult \cite{Arnott2018}. Financial markets have been shown to exhibit heteroskedasticity in their returns \cite{Corhay1996} and as such, creating a robust systematic trading strategy relies on more than just a simple data input/signal output type of architecture. In trading systems, classification of regimes and subsequent buy or sell signals must also be compared vs the expected value of the that trade. A model with an 80\% classification success rate will under perform if it mis-classifies the the 20\% of samples which result in large moves in the asset. \par
- The corollary of that is by only targeting classification of outliers you reduce your sample set and thereby reduce the statistical validity of the results. There is rarely a free lunch in financial markets and as such there will be no free lunch when using machine learning methods to predict financial times series. 
-\par
-For example figure \ref{fig:beststockdays}, shows that missing out on the best 25 days of the Standard and Poors 500 companies equity index (S\&P 500) over the last fifty years would have been very costly \cite{bestdays}. Given that 25 trading days represents only 0.005\% of the total trading days , returns are significantly impacted. This shows the importance of being correctly positioned for outlier events and also the fact that one model can be severely impacted by one off or black swan type events \cite{Taleb2007}. Trend based models tend to exhibit positive skew as they can pick up and ride the wave on this outlier events XXXXciteGreenwood2017XXXX.
-Previous research has centered on price based data possibly as it is easily available and also because it is one dataset that is likely to have higher frequency data available (\cite{Huang2005},\cite{Shen2012},\cite{Wang2014}). 
-
 \subsection{Machine Learning Model Description}
 
 \subsubsection{Artificial Neural Networks}
-Artificial Neural Networks (ANN) were conceptually first written about in the early 1940s \cite{Widrow1990} when neurophysiologist Warren McCulloch and mathematician Walter Pitts wrote a paper on the theoretical functioning of neurons. Donal Webb then expanded on this in his paper "The Organization of Behavior" while the first computerised neural networks were developed by IBM in models called "ADALINE" and "MADALINE" \cite{Widrow1990}. At their core, ANNs are a series of large matrix multiplications where weights and biases, which represent the strength of connections between nodes, are optimized to provide the best approximation to the desired output.\par The popularity of ANN methods have grown as enhanced computational power led to the lowering of barriers to entry in the field. One of the more popular networks used in practice is the mutlilayer perceptron, initially introduced by Frank Rosenblatt in 1958 \cite{Rosenblatt1958}. A perceptron is the simplest form of a layered network and consists of a single neuron with an adjustable weight. The simplest form of the perceptron can divide the hyperplane into a 2-dimensional space which is then used to classify the given inputs. The hyper plane is defined by the linearly separable function below.
+Artificial Neural Networks (ANN) were conceptually first written about in the early 1940s \cite{Widrow1990} when neurophysiologist Warren McCulloch and mathematician Walter Pitts wrote a paper on the theoretical functioning of neurons. Donal Webb then expanded on this in his paper "The Organization of Behavior" while the first computerised neural networks were developed by IBM in models called "ADALINE" and "MADALINE" \cite{Widrow1990}. At their core, ANNs are a series of large matrix multiplications where weights and biases, which represent the strength of connections between nodes, are optimized to provide the best approximation to the desired output.\par The popularity of ANN methods have increased as enhanced computational power led to the lowering of barriers to entry in the field. One of the more popular networks used in practice is the mutlilayer perceptron, initially introduced by Frank Rosenblatt in 1958 \cite{Rosenblatt1958}. A perceptron is the simplest form of a layered network and consists of a single neuron with an adjustable weight. The perceptron can divide the hyperplane into a 2-dimensional space which is then used to classify the given inputs. The hyper plane is defined by the linearly separable function below.
 
 \begin{align}
 \sum^{n}_{i = 1} x_{i}w_{i} - \theta = 0  
@@ -252,13 +259,12 @@ NeuralNet^{l}_{j} =  \sum^{N_{l}}_{i = 1}w^{l-1}_{ij} y^{l-1}_{i}
 where $NeuralNet^{l}_{j}$ is the $l$th layer of the $j$th neuron which gives us the weighted sum of its inputs. The weights of the connections to the next layer $l=1$ are used to calculate the weighted sum of inputs for the subsequent layer in the network.  \begin{align}
 Y^{l}_{j} =  ActivationFunction(NeuralNet^{l}_{j})  
 \end{align} 
-This weighted sum of inputs is then passed through to an activation function which maps the output of the hidden layer to a space defined by the activation function, in this step we can introduce non linearity into the model itself by using a non linear activation function such as the softmax function described below.
+This weighted sum of inputs is then passed through to an activation function which maps the output of the hidden layer to a space defined by the activation function, in this step we can introduce non linearity into the model itself by using a non linear activation function such as the softmax function described below (which is used in this project for the recurrent neural network model (RNN) ).
 \begin{align}
-y =  \frac{\exp(x_{i})}{\sum^{k}_{j=0}\exp(x_{j}) } 
-i = 0,1,2,..k
+y =  \frac{\exp(x_{i})}{\sum^{k}_{j=0}\exp(x_{j}) } \quad for \  i = 0,1,2,..k
 \end{align} 
-This maps any series of values onto a plane of [0,1] and the output depends on the values produced by the node which feeds the activation function. \par While there are a vast array of model training techniques , one method to train an ANN is to use backpropagation, where updates to the network's weights are fed backwards through each layer. Each model has an error function which is used to grade performance, which could be the the squared difference between the models output and the desired output (mean squared error).  \newline The universal approximation theorem \cite{Kurkova1992} of the MLP model in neural networks states that ANNs can approximate any function and thus in theory, should be able to identify any patterns within the data that another method would also identify. \newline The temptation to introduce multiple layers with thousands of connections in order to find a solution is ever present, however (and especially in the realm of finance) this increases the risk of over-fitting or selecting a model based on sheer luck, which fails when tested on live unseen data.
-This project uses a recurrent neural network architecture as standard neural networks have limitations. They rely on the assumption of independence among the training and test examples. After processing each data point, the entire state of the network is lost. If the data points are generated independently (such as an individuals medical diagnosis), this presents no problem. But if data points are related in time or space, this approach is flawed.\par In financial assets, the market reacts and learns from the history of the price series, thus data points are indeed related. Recurrent neural networks look promising as they learn the objective function by analysing sequences of points (hence they have been used extensively in text sentiment analysis where context of words within the sentence is important). \par This memory element can be very useful in financial timeseries as past behaviour tends to dictate the future prices path dependancy. The specific model architecture this paper uses is the Long Short Term Memory model (insert reference). LSTM has traditionally been used in the prediction of sequences of text in natural language processing. The use of LSTM model in finance is gaining popularity with XXXXX insert references all using LSTM for time series prediction. LSTM was introduced by \cite{Hochreiter1997} and makes use of various "gates" to control the flow of information across various nodes.
+This maps any series of values onto a plane of [0,1] and the output depends on the values produced by the node which feeds the activation function. \par While there are a vast array of model training techniques , one method to train an ANN is to use backpropagation, where updates to the network's weights are fed backwards through each layer. Each model has an error function which is used to grade performance, which could be the the squared difference between the models output and the desired output (mean squared error, used in training the RNN in this project).  \newline The universal approximation theorem \cite{Kurkova1992} of the MLP model in neural networks states that ANNs can approximate any function and thus in theory, should be able to identify any patterns within the data that another method would also identify. \newline The temptation to introduce multiple layers with thousands of connections in order to find a solution is ever present, however (and especially in the realm of finance) this increases the risk of over-fitting or selecting a model based on sheer luck, which fails when tested on live unseen data.
+This project uses a recurrent neural network architecture as standard neural networks have limitations. They rely on the assumption of independence among the training and test examples. After processing each data point, the entire state of the network is lost. If the data points are generated independently (such as an individuals medical diagnosis), this presents no problem. But if data points are related in time or space, this approach is flawed.\par In financial assets, the market reacts and learns from the history of the price series, thus data points are indeed related. Recurrent neural networks look promising as they learn the objective function by analysing sequences of points (hence they have been used extensively in text sentiment analysis where context of words within the sentence is important). \par This memory element can be very useful in financial timeseries as past behaviour tends to dictate the future prices path dependancy. The specific model architecture this paper uses is the Long Short Term Memory (LSTM) model \cite{Hochreiter1997}. LSTM has traditionally been used in the prediction of sequences of text in natural language processing. The use of LSTM models in finance is gaining popularity with \cite{Fischer2018}, \cite{Lim2019} and \cite{Kucharczyk2019} all using LSTM for time series prediction. LSTM was introduced by Hochreiter et al. in 1997 \cite{Hochreiter1997} and makes use of various "gates" to control the flow of information across various nodes.
 \begin{align}
 {F^{i}}_{t} =  \sigma(W_{F}{u^{i}}_{t} + V_{F}{h^{i}}_{t-1} + bias_{f})
 \end{align} 
@@ -283,7 +289,7 @@ This project uses a recurrent neural network architecture as standard neural net
 {Z^{i}}_{t} = g(W_{z}{H^{i}}_{t} + bias_{z})
 \end{align}
 
-where $*$ denotes element wise multiplication, $\sigma$ is the sigmoid activation function, $W$ and $V$ are weights matrices of different layers, and ${F^{i}}_{t}$, ${I^{i}}_{t}$, ${O^{i}}_{t}$ are the forget , input, output gates and ${C^{i}}_{t} $, ${H^{i}}_{t}$, ${Z^{i}}_{t}$ are the cell,  hidden and outout states of the LSTM. The LSTM uses the cell states summarise past information and controls the flow of historical memory uses the forget gate while the pass through of new information is set by the input gate. Thus the LSTM model should be better equipped than an ANN in learning the long term relationships relevant to assisting in the prediction of the target variable. Figure \ref{fig:LSTM_arch} depicts the structure of a Long Short Term Memory Model. 
+where $*$ denotes element wise multiplication, $\sigma$ is the sigmoid activation function, $W$ and $V$ are weights matrices of different layers, and ${F^{i}}_{t}$, ${I^{i}}_{t}$, ${O^{i}}_{t}$ are the forget , input, output gates and ${C^{i}}_{t} $, ${H^{i}}_{t}$, ${Z^{i}}_{t}$ are the cell,  hidden and output states of the LSTM. The LSTM uses the cell states to summarise past information and controls the flow of historical memory using the forget gate. The pass through of new information is set by the input gate. Thus the LSTM model should be better equipped than an ANN in learning the long term relationships relevant to assisting in the prediction of the target variable (in this case the future price move). Figure \ref{fig:LSTM_arch} depicts the structure of a Long Short Term Memory Model. 
 
 \begin{figure}[h]
     \centering
@@ -295,7 +301,7 @@ where $*$ denotes element wise multiplication, $\sigma$ is the sigmoid activatio
      \caption*{\small Source: colah.github.io, Google Images}
 \end{figure}
  
-\paragraph{Background Research}
+\myparagraph{Background Research}
 ANNs have been used extensively in academic financial journals, Czekalski et al. made use of feedforward multilayer perceptrons to predict the direction of the EURUSD currency rate \cite{Czekalski2015}, while Wang et al. applied probabilistic neural networks and  Least Square Support Vector Machine models to assist in the prediction of Chinese equities \cite{Wang2014} . Literature on using ANNs to forecast currencies has a twenty year history as even at turn of the millennium Joarder et al.  tested three separate ANN based forecasting models using standard backpropagation, scaled conjugate gradient and backpropagation with Baysian regularisation to predict movements in various Australian dollar currency crosses \cite{Joarder2003}. Gunduz et al. tested a variety of ANN models and Support Vector Machines (SVM) to try to predict the price of equities traded on the Istanbul Stock Exchange, they found model classification accuracy rates consistently around 70\% on test data \cite{Gunduz2017} . \newline Most of the research cited makes use of various technical indicators which are derived directly from the price series, for example, Gunduz et al. make use of ten price based technical indicators to uncover patterns within Turkish equities \cite{Gunduz2017}. Prior research suggested above 70\% classification rates were attainable on average, however in contrast to this, there is evidence that ANNs often show inconsistent performance on noisy data (\cite{Kim2003},\cite{Kumar2006},\cite{Kim2000}), which highlights the challenges in applying complex models as the risk of overfitting the data remains an ever present threat. 
 
 \subsubsection{Support Vector Machines}
@@ -314,7 +320,7 @@ Subject to
 y_{i}( \beta_{0} + \beta_{1}x_{1} + \beta_{2}x_{2} +...+ \beta_{j}x_{ij}) \geq M(1- \epsilon_{i})
 \end{align}
 such that $ \epsilon_{i} \geq 0$ and $ \sum^{N}_{i = 1} \epsilon_{i} \leq C$. Where $M$ is the width of the margin to be maximised, $ \beta_{i}$ denotes the weight of the coefficients and $x_{i}$ is the $i^{th}$ observation $(i = 1,2,...,N)$ of the dataset, $\epsilon_{i}$ is a variable whose value sets the degree to which individual observations are allowed on the wrong side of the margin or hyperplane. $C$ is a non negative tuning parameter which sets out the total error allowed for observations to be on the wrong side of the margin \cite{James2013}. 
-\paragraph{Background Research}
+\myparagraph{Background Research}
  Kara et al. utilised SVMs to discover patterns in Turkish equities achieving classification success rates of around 60\% when tested on hold out data \cite{Kara2011}. Both polynomial and radial basis SVMs were trained on a host of price based technical data with the radial SVM outperforming the polynomial SVM. The polynomial SVM also had a much higher variability in classification success rates and thus the radial basis may be best suited to predicting financial time series. The results of the radial SVM were significant with a test statistic of 3 and p-value of 1\%. The radial basis kernel is used in this project.
 \newline Similarly, Patel el al. tested a selection of four different machine learning methods (ANN, SVM, Random Forest and Naive Bayes) using ten technical indicators \cite{Patel2015}. The predictor space was also transformed into trend deterministic states, which map the original continuous values into discrete values based on the trend of the continuous valued indicator (downward trend = -1, upward trend = 1). Results suggested that model performance is improved when trend deterministic data is used instead of continuous data. They postulate that the models perform better on the trend deterministic data as this transformation inputs the underlying trend of the indicator which then allows the model to learn the relationship between the underlying predictor trends and the actual output trend.\newline SVM classification rates using this approach (for both radial and polynomial kernels) approached nearly 90\% on average.
 Huang et al. also tested the performance of an SVM model (radial kernel) to predict Nikkei futures prices\footnote{Nikkei 225 is one of the main Japanese Stock Market Indices} and achieved classification rates of 73\% on test data. The authors also found that combining model forecasts increased out-of-sample test results \cite{Huang2005}.
@@ -337,7 +343,7 @@ Even in such a simple split of the predictor space, we see some evidence that mo
 \end{align}
  where $y^{*}_{R_{j}}$ is the mean response for the training observation within the $j^{th}$ region.
 The methods tested in the project will revolve around Random Forests (introduced by Leo Breiman \cite{Breiman2001}) which averages the prediction across hundreds of single decision trees. The trend estimation model uses a random forest architecture to identify trend conducive regimes,
-\paragraph{Background Research}
+\myparagraph{Background Research}
 Research has shown that Random Forests can generalise better than single decision trees as they maintain high variance while reducing the bias of the model\cite{Genuer2012}.
  Random forests use bootstrapping to take multiple random samples from the training data and a random subset of feature vectors to create a diverse array of decision trees which aid model generalisation. This method helps to create decision trees which are uncorrelated to each other and thus have a lower probability of overfitting the data. Patel et al. showed that the it was possible to achieve classification rates of over 80\% for various stock price predictions when using the random forest algorithm and input features which consisted of technical price based indicators\cite{Patel2015}. The research used a random selection of three feature vectors (out of a total of ten) to create each single decision tree in the random forest model and tested the results from 20 to 200 trees using a majority vote for the final classification.  \newline
 Kumar et al. performed extensive tests to compare the performance of support vector machines to random forests and found that on average support vector machines outperformed random forests when predicting the direction of the Indian stock exchange \cite{Kumar2006}. Three predictors were considered for each node while the number of trees for each model ranged from 200 to 1500. There was no significant reduction in the error rate for the out-of-sample data based on the number of trees. The RF model achieved classification rates of over 67\% on out of sample data.\newline
@@ -347,16 +353,16 @@ Chatzis et al. found that RF methods outperformed SVMs and logistic regression t
 
 \section{Methodology} \label{method}
 
-This section provides a deep dive into the underlying methodology of the full life cycle of the model, including how the data pipeline was structured,  the training and testing methodology and various model evaluation techniques. The model architecture selected was to combine two different models, the first model with the explicit goal of capturing the trend in the time series while the second model would act as a regime identifier and allocate capital to the tredn model when the current rgime was conducive to the positive performance of trend. the model design is covered in greater detail in section \ref{ProjectD}.
+This section provides a deep dive into the underlying methodology of the full life cycle of the model, including how the data pipeline was structured,  the training and testing methodology and various model evaluation techniques. The model architecture selected was to combine two different models, the first model with the explicit goal of capturing the trend in the time series while the second model would act as a regime identifier and allocate capital to the trend model when the current regime was conducive to the positive performance of trend. The model design is covered in greater detail in section \ref{ProjectD}.
 
 \subsection{System Specifications}
-The Python programming language (Python 3.6,\cite{McKinney1976}) will be used as the main programming application to achieve the objectives, with the python packages of Numpy \cite{VanDerWalt2011}, Scipy\cite{Tobergte2013}, Sci-Kit Learn\cite{Geron2017}, Matplotlib\cite{Wood2015} and Pandas\cite{Reiff2002} all providing very useful data manipulation functions to help store, clean and process data. For more complex ANN learning, the machine learning package Keras  \cite{Chollet2015} will be used in the training and testing of Neural network models. In order to train the more intensive models such as the Long Short Term Memory model, a cloud server was used, the specfications of the machine were as follows, 1 CPU with 1.7GB RAM and 250GB SSD. While not computationally very powerful, the machine was selected due to its low running costs which allowed the RNN to train on the dataset overnight. Total time spent running the server was over 250 hours. 
+The Python programming language (Python 3.6,\cite{McKinney1976}) will be used as the main programming application to achieve the objectives, with the python packages of Numpy \cite{VanDerWalt2011}, Scipy\cite{Tobergte2013}, Sci-Kit Learn\cite{Geron2017}, Matplotlib\cite{Wood2015} and Pandas\cite{Reiff2002} all providing very useful data manipulation functions to help store, clean and process data. For more complex ANN learning, the machine learning package Keras  \cite{Chollet2015} will be used in the training and testing of Neural network models. In order to train the more intensive models such as the Long Short Term Memory model, a cloud server was used, the specifications of the machine were as follows, 1 CPU with 1.7GB RAM and 250GB SSD. While not computationally very powerful, the machine was selected due to its low running costs which allowed the RNN to train on the dataset overnight. Total time spent running the LSTM model across various training/test periods was over 250 hours. 
 
 
 \subsection{Data Description}
 One of the most important aspects of a trading model is to ensure that the underlying data is of high quality and doesn't contain erroneous values. The trading model uses hourly spot exchange rates for G10 currencies \footnote{Hourly FX Spot Data Provided by Citi Foreign Exchange} alongside various economic data and currency valuation data from the CitiFX and the Organisation for Economic Cooperation and Development (OECD) and national statistics offices.
 
-The data used for this project consisted of hourly foreign exchange data for the EURUSD currency pair\footnote{Value of 1 European EUR in terms of the United States Dollar} and related economic and currency valuation data. Figure \ref{fig:EURUSDMovingAvg} shows the performance of EURUSD over the last sixteen years formed of hourly snapshots and its 55 day and 55 week moving averages. In total the hourly data was sourced from 2001 to the start of 2019, which consisted of just over 120,000 rows of data. One issue encountered was that training the LSTM (even using powerful GPU machines on the cloud server) took an extended amount of time to train. This made cycling through various model iterations challenging, with the process often left to run overnight.  There is evidence of the existence of momentum in currencies \cite{Filippou2017} and this project will explore ways of capturing the trending nature of currencies more accurately than a simple linear model.
+The data used for this project consisted of hourly foreign exchange data for the EURUSD currency pair\footnote{Value of 1 European EUR in terms of the United States Dollar} and related economic and currency valuation data. Figure \ref{fig:EURUSDMovingAvg} shows the performance of EURUSD over the last sixteen years formed of hourly snapshots and its 55 day and 55 week moving averages. In total the hourly data was sourced from 2001 to the start of 2019, which consisted of just over 120,000 rows of data. One issue encountered was that training the LSTM (even using powerful GPU machines on the cloud server) took a prohibitively long amount of time. This made cycling through various model iterations challenging, with the process often left to run overnight.  There is evidence of the existence of momentum in currencies \cite{Filippou2017} and this project will explore ways of capturing the trending nature of currencies more accurately than a simple linear model.
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
@@ -366,16 +372,14 @@ The data used for this project consisted of hourly foreign exchange data for the
     \label{fig:EURUSDMovingAvg}
 \caption*{\small Source: EURUSD FX Rate, Kaggle Database}
 \end{figure}
-Economic data can be obtained from a variety of sources, with the Federal Reserve Economic Database (FRED)\footnote{Successfully used in \cite{Chatzis2018} to assist with forecasting stock market crises}, IMF and OECD all providing vast treasures of low frequency economic data to create feature vectors. Relative economic growth\footnote{Citi 2019} (as measured by momentum across indicators such as consumer spending, GDP growth, industrial production and business confidence) has been shown to assist in the prediction of currency movements \cite{Dahlquist2015}. 
+
 \subsection{Data Pipeline}
 
-\subsubsection{Data Cleaning}
-The data was also screened for errors and missing data points. Cleaning of the data was broken down into outlier detection (to capture any erroneous inputs) and cross checking the data vs known events in time (such as Brexit, election dates) to see if the observed outliers match the expected time frames. This data was also screened and mapped to correct date scales so that the model only used data available at the time of trade signal generation. Once the data had been cleaned appropriately, the next step was to standardise the data and then choose the model features.
-
-\subsubsection{Standardisation}
+\subsubsection{Objective One: Data Cleaning and Standardisation}
+The data was initially screened for errors and missing data points. Cleaning of the data was broken down into outlier detection (to capture any erroneous inputs) and cross checking the data vs known events in time (such as Brexit, election dates) to see if the observed outliers match the expected time frames. This data was also screened and mapped to correct date scales so that the model only used data available at the time of trade signal generation. Once the data had been cleaned appropriately, the next step was to standardise the data and then choose the model features.
  The data was stored and manipulated using Pandas dataframes while Sci-Kit Learn provided the functionality to run both the random forest and support vector regressions. While the package also has some very useful functions such as StandardScaler to standardise the data, in this project a bespoke scaling method was used where the data is standardised by the standard deviation of the feature over a rolling three year lookback window. This is a more realistic approach to use when creating systematic trading strategies as this method uses all available data up to the point of trading and expresses all point in relation to its most recent history, allowing the denominator (the standard deviation ) to vary over time as the market changes regime.
-\par Standarising the data remains an important initial step that has been used across a wide variety of prior research. Subtracting the mean and dividing by the standard deviation (z-scoring) \cite{Fischer2018}, min-max standardisation\footnote{Map observations onto a scale of [0,1] with 0 being the minimum value of the observation and 1 denoting maximum} (\cite{Gunduz2017},\cite{Kumar2006})  and other techniques such as  mapping functions to scale feature vectors onto a pre-defined scale (\cite{Kara2011},\cite{Wang2014},\cite{Patel2015}) all help to achieve the overall goal of scaling, which is to ensure that larger or more volatile features do not overwhelm features of smaller magnitude and lower volatility.  
-
+\myparagraph{Standardisation}
+Standarising the data remains an important initial step that has been used across a wide variety of prior research. Subtracting the mean and dividing by the standard deviation (z-scoring) \cite{Fischer2018}, min-max standardisation\footnote{Map observations onto a scale of [0,1] with 0 being the minimum value of the observation and 1 denoting maximum} (\cite{Gunduz2017},\cite{Kumar2006})  and other techniques such as  mapping functions to scale feature vectors onto a pre-defined scale (\cite{Kara2011},\cite{Wang2014},\cite{Patel2015}) all help to achieve the overall goal of scaling, which is to ensure that larger or more volatile features do not overwhelm features of smaller magnitude and lower volatility.  Below shows a code snippet of the function to standardise the dataset.
 \begin{lstlisting}
 
 def standardise_data(dataset, full_cols, standardised_cols,window):
@@ -399,8 +403,8 @@ def standardise_data(dataset, full_cols, standardised_cols,window):
 
 \end{lstlisting}
 
- \subsubsection{Feature Extraction}
-The model features  were chosen with the goal of capturing the underlying trend of the time series, it is very important in finance that the features are not chosen using a grid search of the hyperparameters. Feature selection driven by mining the training set greatly increases the risk of overfitting and should be avoided when working with financial times series \cite{Arnott2018}. Thus the features which had an intuitive justification for defining the trend are shown in the following table. Financial time series prediction is a very challenging task given the inherent noise in the data, thus the number of available features were kept to a minimum and in effect used only the deviation of the currency price from the short, medium and long term price averages. 
+ \subsubsection{Objective Two: Feature Extraction}
+The model features  were chosen with the goal of capturing the underlying trend of the time series, it is very important in finance that the features are not chosen using a grid search of the hyperparameters. Feature selection driven by mining the training set greatly increases the risk of overfitting and should be avoided when working with financial times series \cite{Arnott2018}. Thus the features which had an intuitive justification for defining the trend are shown in the following table. Financial time series prediction is a very challenging task given the inherent noise in the data, thus the number of available features were kept to a minimum and in effect used only the deviation of the currency price from the short, medium and long term price averages. We use these features as they allow the model to capture the underlying trend (in either an upward or downward direction) by looking at the current price level in relation to historical levels.
 
 \begin{table}[h] 
 \centering      % used for centering table
@@ -418,10 +422,15 @@ Long Term Momentum & 300, 350, 400, 455 Period Moving Average  & Technical\\
 }
 \label{table:feature} % is used to refer this table in the text 
 \end{table} 
-
+The following formula was used to calculate the deviation of the current price to its moving average over a set horizon. This project used an exponentially weighted moving average.
+ 
+\begin{align}
+EMA_{t} = price_{t}*k + EMA_{t-1}*(1-k) \quad for \ i = 1,2,3...t
+\end{align}
+where $k = \frac{2}{(N+1)}$ , and $N$ is the length of the moving average and $price_{t}$ is the price of the underlying asset at time, $t$.\par 
 Dimensionality reduction (via principle component analysis) was also performed on the features, however this did not have any positive impact on the models performance.
-The second model then allocate risk capital to the trend strategy based on longer term fundamental economic data.
-The feature selection process for model two (regime prediction) was based on economic intuition as this can lessen the probability of over-fitting \cite{Arnott2018}. \newline As patterns and correlations in prices can change quite quickly, it is important not to overfit the model on the training data.  The technical price based indicators are captured in the first model, while the second model measures non price based information such as economic momentum and valuation. 
+\myparagraph{Feature Selection For Trend Regime Prediction}
+The feature selection process for model two (estimating the likelihood of a trending price series) was based on economic intuition as this can lessen the probability of over-fitting \cite{Arnott2018}. As patterns and correlations in prices can change quite quickly, it is important not to overfit the model on the training data.  The technical price based indicators are captured in the first model, while the second model measures non-price based information such as economic momentum and risk appetite (which is a measure of markets current sentiment). 
 Table \ref{table:feature} outlines the features which will be used in model two.
 \begin{table}[h] 
 \centering      % used for centering table
@@ -440,31 +449,47 @@ Currency Volatility & Annualised Volatility & Technical Stress Factor \\[1ex]
 \label{table:feature2} % is used to refer this table in the text 
 \end{table} 
 
-The approach of combing two separate models each with specific goals is a novel way to use machine learning in finance, in essence one model controls the price prediction while the second model is used to gauge how likely the first model is to generate positive returns.
+The approach of combing two separate models each with specific goals is a novel way to use machine learning in finance, in essence one model controls the price prediction component while the second model is used to gauge how likely the first model is to generate positive returns.
 
-\subsubsection{Justification of Features}
+\subsubsection{Justification of Features} \label{justify}
 The aim of the features used in this project was to try to juxtapose higher frequency technical price data alongside lower frequency economic data to assist in a model's prediction accuracy. While price based metrics offer the easiest route to higher frequency data, they also lack the ability to capture the fundamental economic factors that can drive currency direction \cite{medium}. Thus combining two separate models to handle each aspect of the trade signal process can create synergies between each model. 
 Below we showcase factors that can impact currency direction.
-\paragraph{Economic Fundamentals} 
+\myparagraph{Economic Fundamentals} 
 One of the most important factors that sets the broad direction of a currency pair is the relative economic performance between two countries.
-Dahlquist et al. show that measuring relative economic momentum between different countries has the ability to forecast currency direction over medium term horizons \cite{Dahlquist2015}. That paper showed statistically significant results that economic fundamentals have an important role in relative capital flows and subsequent currency direction.
-\paragraph{Price Momentum}
-Price momentum here refers to the historical trend in the currency,  research does suggest there exists  exploitable momentum within the currency space \cite{Moskowitz2012}. The reasoning for the existence of momentum in currencies is likely due to decision delays amongst different investor segments who build up positions in currencies over time. Auto-correlation in currency returns may also exist as information is priced slowly over time (such as economic data) and thus as more economic data is published, this adds further confirmation to a trading signal and thus conviction and trade size increases.
-\paragraph{Investor Positioning}
-Currency positioning relates to the magnitude of investor holdings of a currency. Positioning and currency flows can have informational value that impacts a model's performance \cite{Menkhoff2012}. For instance, if the finalised model triggered a buy recommendation on a currency, but if the wider market had already built up a sizable long position in that currency, then the likelihood of further buyers coming in to drive the price higher is diminished.
-\paragraph{Currency Valuation}
-Uncovering the true fundamental fair value of a currency has been the focus of international academic research for many years \cite{Rogoff1996}, and it remains an elusive and rather ambiguous task as currency drivers can undergo structural shifts. Purchasing Power Parity currency levels , which rely on the Bassala Samuelson effect and the law of one price \cite{Hassan2016} are one method of trying to anchor the value of a currency to one fundamental price level. While currencies can deviate from fair value, there is some evidence that developed market\footnote{Developed Market Currencies consist of USD, EUR, JPY, CHF, GBP, AUD, NZD, NOK , SEK, CAD} currencies tend to mean revert in the long term \cite{CaZorzi2016}.
-
+Dahlquist et al. show that measuring relative economic momentum between different countries has the ability to forecast currency direction over medium term horizons \cite{Dahlquist2015}. That paper showed statistically significant results that economic fundamentals have an important role in relative capital flows and subsequent currency direction. This economic feature is used in model 2 to capture relative economic dispersion between the Euro Area and the United States, with the view that diverging economies should create an environment where currencies trend in the direction of the economic outperformance. 
+\myparagraph{Price Momentum}
+Price momentum here refers to the historical trend in the currency,  research does suggest there exists  exploitable momentum within the currency space \cite{Moskowitz2012}. The reasoning for the existence of momentum in currencies is likely due to decision delays amongst different investor segments who build up positions in currencies over time. Auto-correlation in currency returns may also exist as information is priced slowly over time (such as economic data) and thus as more economic data is published, this adds further confirmation to a trading signal and thus conviction and trade size increases. Model one is tasked with capturing price momentum.
+\myparagraph{Risk Appetite}
+Risk appetite in financial trading refers to the wider investor communities appetite for higher risk assets. For example when risk appetite is high, then investors buy equities and currencies with high interest rates as they are happy to take the higher probability of losses (.i.e. the investment risk) associated with the higher return. Aggregated global economic data help to forecast changes in risk appetite as investors react positively to strong global growth and negatively to global growth shocks. Low risk appetite (growing investor fear) tends to be accompanied by regime shifts, and also increases in price momentum as the asset searches for a new equilibrium price level. Model two uses this feature for regime prediction.
+\myparagraph{Currency Volatility}
+The currencies volatility is a measure of how erratic the currency is behaving and increases in currency volatility can point towards changing regimes as the market tries to find a new equilibrium price level. Model two uses currency volatility as one of the features to assist in identifying a trending regime.
+\vspace{5mm}
 
 While the above drivers of currency markets are not exhaustive, it can provide a frame work for constructing a systematic trading strategy. Currency drivers can shift over the short and medium term and while this can all be partially captured by price action, it is also prudent to try to understand the dynamics of other potential drivers as discussed in the previous section. \newline
-Therein lies the main problem when combining machine learning and finance, that other areas such as the biological or physical sciences do not encounter, is that at the core of each price, are human or human created trading algorithms which have collectively decided on a price level at which to transact. \newline Every price of a trade in financial markets consist of the dreams, fears and greed of human emotion. Not only this, but market investors are influenced by past patterns and incorporate new information (including newly published research) into future decisions, thus altering the environment in which the historical pattern has been learned. Bartram at al. provide evidence that anomaly (excess) profits published in research papers tend to decay substantially in the period after publication, which suggests any new findings are arbitraged away\footnote{Of course a more sinister reason could be model overfitting on historical data} quickly as the new information is incorporated into the market\cite{Bartram2019}. 
+Therein lies the main problem when combining machine learning and finance, that other areas such as the biological or physical sciences do not encounter, is that at the core of each price, are human or human created trading algorithms which have collectively decided on a price level at which to transact. \newline Every price of a trade in financial markets consist of the dreams, fears and greed of human emotion. Not only this, but market investors are influenced by past patterns and incorporate new information (including newly published research) into future decisions, thus altering the environment in which the historical pattern has been learned. Bartram at al. provide evidence that anomaly (excess) profits published in research papers tend to decay substantially in the period after publication, which suggests any new findings are arbitraged away\footnote{Of course a more sinister reason could be model overfitting on historical data} quickly as the new information is incorporated into the market\cite{Bartram2019}. \par
 
-While early academic research espoused the efficient market hypothesis, there are certain times where the market is not fully rational \cite{Dome2008}. Thus opportunities do exist, but finding repeatable opportunities requires more than just analysing price patterns in data. Given the randomness of markets, even poor strategies can perform well for long periods of times due to sheer luck. This creates new challenges for practitioners of machine learning in finance, in fact, new research has also started to focus on protocols and best practices around data mining in finance \cite{Arnott2018}.
+While early academic research espoused the efficient market hypothesis, there are certain times where the market is not fully rational \cite{Dome2008}. Thus opportunities do exist, but finding repeatable trading opportunities requires more than just analysing price patterns in data. Given the randomness of markets, even poor strategies can perform well for long periods of times due to sheer luck. This creates new challenges for practitioners of machine learning in finance, in fact, new research has also started to focus on protocols and best practices around data mining in finance \cite{Arnott2018}.
 
-Being able to identify trends would allow the model to outperform when there is strong presence of momentum while not overly churning the portfolio if there is a lack of momentum in any direction. Building the model to this asymmetric specification can assist in the generalisation of the model. \newline Thus it was decided to first train a model to identify trends in each series and then overlay that model with another capable of using the non price data to identify periods when currencies exhibit trending behaviour. For example, periods of elevated economic dispersion could be conducive to trend strategies outperforming.
+Being able to identify trends and trend regimes would allow the trading model architecture to outperform other simpler linear models while not churning (over trading) the portfolio if currency starts to enter a pattern of mean reversion. Building the model to this asymmetric specification can assist in the generalisation of the model. \newline Thus it was decided to first train a model to identify trends in each series and then overlay that model with another capable of using the non-price data to identify periods when currencies exhibit trending behaviour. For example, periods of elevated economic dispersion could be conducive to trend strategies outperforming.
 
-\subsection{Training and Testing Methodology}
-The model training stage allows the learning algorithm to understand and capture the relationship between the features and the classification target vector (the target vector will be the future direction of the asset price across various time periods). Prior research has generally used binary classification of the future asset price move when developing models(\cite{Abreu2018},\cite{Gunduz2017},\cite{Chatzis2018}). \newline Model training allows us to understand which combination of models (RNN, SVM, RF) and underlying architecture (hidden layers, number of decision trees, kernel type) are best suited to capturing the nuances in the data. This stage of the process also provided an opportunity to experiment with various models to see the differences in performance. The training and testing phases were performed over multiple different windows such as walk forward testing, K-fold testing \ref{fig:Train_Test} and simple train and test splits over the full dataset. The structure of the different training/testing methods are shown below.
+\subsection{Objective Three: Training and Testing Methodology}
+The model training stage allows the learning algorithm to understand and capture the relationship between the features and the classification target vector (the target vector will be the future direction of the asset price 24 hours in the future). Prior research has generally used binary classification of the future asset price move when developing models(\cite{Abreu2018},\cite{Gunduz2017},\cite{Chatzis2018}). \newline Model training allows us to understand which combination of models (RNN, SVM, RF) and underlying architecture (hidden layers, number of decision trees, kernel type) are best suited to capturing the nuances in the data. This stage of the process also provided an opportunity to experiment with various models to see the differences in performance. The training and testing phases were performed over multiple different windows such as walk forward testing, K-fold testing \ref{fig:Train_Test} and simple train and test splits over the full dataset. The structure of the different training/testing methods are shown below. The results of training and testing on the price data will be further explored in section \ref{results}. The code below shows a snippet of a python function called create\textunderscore train\textunderscore  test file written to split the data set into various train and test periods based on whether one wants k fold training or walk forward training.
+
+\begin{lstlisting}
+    # training size is the first x data points and the test data is appended onto the train data 
+    # such that we use a walk forward testing framework
+    if concat_results:
+        # provide data up till the test data zone
+        train_data = int(data_file.shape[0]) - (test_size + test_buffer)
+        train_original = data_file.iloc[:train_data, :].reset_index(drop= True)
+        # provide data in the last x points of test data available
+        test_original = data_file.iloc[-test_size:, :].reset_index(drop= True)
+    else:
+	# this effectively acts as a batch training/split
+        train_original = data_file.iloc[:int(data_size), :].reset_index(drop= True) 
+        test_original = data_file.iloc[int(data_size) + test_buffer: (int(data_size) + int(test_size)), :].reset_index(drop= True)
+\end{lstlisting}
+\vspace{4mm}
 \begin{figure}[h]
     \centering
 % below is where you put the actual image name in the directory
@@ -475,10 +500,8 @@ The model training stage allows the learning algorithm to understand and capture
      \caption*{}
 \end{figure}
 
-The results of training and testing on the price data will be further explored in section \ref{results}. 
-
-\subsection{Model Evaluation Methods} \label{backy}
-In order to validate the model, the standard procedures of analysing the mean-squared error, classification hit rates and precision and recall will be analysed. However, given this is a trading system, the selected model and its structure will need to be tested in a similar setting to real world trading. This requires the construction of a backtesting engine which can simulate each models performance taking into the signal lag \footnote{ The time between signal generation and trading time} and the currency performance per each trading signal. This will provide a much more accurate analysis of the selected trading strategy performance\footnote{The vast majority of research papers referenced in this thesis did not perform this type of testing}. While classification success rates will be important in gauging model accuracy, high classification rates may not lead to positive strategy performance if large currency moves are mis-classified. The code for the trade backtesting engine is shown below .
+\subsection{Objective Four/Five: Model Evaluation Methods} \label{backy}
+In order to validate the model, the standard procedures of analysing the mean-squared error, classification hit rates and precision and recall will be analysed. However, given this is a trading system, the selected model and its structure will need to be tested in a similar setting to real world trading. This requires the construction of a backtesting engine which can simulate each models performance taking into the signal lag \footnote{ The time between signal generation and trading time} and the currency performance per each trading signal. This will provide a much more accurate analysis of the selected trading strategy performance\footnote{The vast majority of research papers referenced in this thesis did not perform this type of testing}. While classification success rates will be important in gauging model accuracy, high classification rates may not lead to positive strategy performance if large currency moves are mis-classified. A code snippet taken from the trade backtesting engine is shown below .
 \clearpage
 \begin{lstlisting}
 def backtester(results, test, trade_horizon):
@@ -492,20 +515,10 @@ def backtester(results, test, trade_horizon):
     # This needs to change to handle the change in the target
     predictions = pd.DataFrame({"Date": test['Date'], "Predictions": results})
     test_results = pd.merge(test, predictions, how="left", on="Date").fillna(0)
-    # calculate the returns of the signal
+    # calculate the returns of the signal for the signal which has been put through the error function to smooth the position.
     test_results["erf_signal"] = test_results['Predictions'].apply(erf)
     test_results["scaled_signal"] = test_results['Predictions'].shift(2).rolling(trade_horizon).sum() / trade_horizon
     test_results["scaled_signal_erf"] = test_results['erf_signal'].shift(2).rolling(trade_horizon).sum() / trade_horizon
-    # no shift needed as we have already done that in previous step
-    test_results['strat_returns'] = test_results['logret'] * test_results['scaled_signal']
-    test_results['strat_returns_sum'] = test_results['strat_returns'].cumsum()
-    # calculate returns for the error function
-    test_results['strat_returns_erf'] = test_results['logret'] * test_results['scaled_signal_erf']
-    test_results['strat_returns_sum_erf'] = test_results['strat_returns_erf'].cumsum()
-    strat_return = test_results['strat_returns'].sum()
-    # provide the information ratio on an annualised basis.
-    information_ratio = (test_results['strat_returns'].mean() * 260) / (test_results['strat_returns'].std() * np.sqrt(260))
-    return (test_results, strat_return, information_ratio)
 \end{lstlisting}
 
 \subsubsection{Assessing Model Performance}
@@ -559,6 +572,7 @@ where $\widehat{SR}_{0} = \sqrt{V\left[\widehat{SR}_{n}\right]
 						 \right)}$
 and $\widehat{SR}$ is the estimated Sharpe Ratio to be tested, $T$ is the sample length, $\gamma_{3}$ is the skewness of the returns distribution and $\gamma_{4}$ is the kurtosis of the selected strategy,  $V\left[\widehat{SR}_{n}\right]$ is the Sharpe Ratio variance across the number of strategies tested, $N$ is the number of independent trials of strategies run (.i.e. the number of models tested) and $Z$ is the cumulative function of the Gaussian distribution\footnote{Further information and theoretical proofs of the deflated sharpe are available from \cite{Bailey2014}}.  
 
+\clearpage
 
 \section{Project Design and Implementation} \label{ProjectD}
 This section outlines the specific steps taken to create each model and provides some justification for the selection of various model parameters and specifications used.
@@ -567,16 +581,28 @@ Various Python packages such as Sci-Kit Learn and Keras were used to create and 
 Three model architectures were used in this project.
 \begin{itemize}
  \item Recurrent Neural Networks: Long Short Term Memory Models
-\item Decision Trees: Random Forests
+\item Decision Trees: Random Forests.
 \item Support Vector Machines: both classification and regression methods. 
 \end{itemize}
-One novel approach in selecting the target vector (.i.e. the future return of the model) was to used a risk adjusted return and predict the risk adjusted return as opposed to the binary return \cite{Lim2019}, this ensures that the trend model can also estimate the positioning size and negates the need for a separate trade risk adjustment to be made. \newline
+One novel approach in selecting the target vector (.i.e. the future return of the asset) was to used a risk adjusted return and predict the risk adjusted return as opposed to the binary return \cite{Lim2019}, this ensures that the trend model can also estimate the positioning size and negates the need for a separate trade risk adjustment to be made. \newline
  
 During the course of the project, it became clear that using historical price data to train the model produced erratic performance in the testing period across all three models and various training and testing phases. Perhaps this was due to the nature of the underlying security being EURUSD (one of the most highly traded instruments in finance and thus was highly efficient) or that the model tended to over fit the training data (even when using techniques such as drop out rates and tree pruning was performed). 
 
 \subsubsection{Trading Model Methodology} \label{rand}
-Thus given the failure of the model to learn robust profitable trading patterns its own price data, it was necessary to go back to basics and understand what the goal of the model and its features ultimately was. We are trying to predict the trend in the price series. If the series we are trying to trend has only exhibited trend in patches across the full time frame of available data, then the model is likely unable to pick this trend up over the full sample, as it ends up training on conflicting patterns. This was one fact that did emerge when training using K fold cross validation. In some instances the training data set happened to be during regimes of strong upward or downward trends, and subsequently the model would perform well in the test phase\footnote{The results of various model performance is covered in section \ref{results}}. Thus for the model to be able to capture trends, it needed to be trained to recognise a trend, therefore, I decided to switch the training data away from the historical price series data and onto randomly generated trending data series which could replicate trends in asset price series. Of course when training on randomly generated data one mus also include some noise term such that we create series which mimic financial asset prices. Hence the trending data was injected with a noise term.
-Training on randomly generated data has two very appealing traits, one it reduces the chances of overfitting the data. The ability to overfit is reduced but not removed as there is a chance the randomly generated data series happens by chance to mimic closely the testing phase of the data (hence training of various iterations of the randomly generated data is important). Secondly, it opens up the full live price series data to exist as the test dataset. \newline Hence by training the model to recognise trends, we can now test on the full 120,000 rows of EURUSD price data. 
+The failure of the model to learn robust profitable trading patterns using its own price data was one risks cited in the proposal which came to fruition. The solution to this problem was to switch the model from one which trained on the actual price series to one which trained on randomly generated price data which had a built in a trend component. In effect it was necessary to go back to basics and understand what the goal of the model and its features ultimately was, trend prediction.\par
+If the series we are trying to predict has only exhibited trend in patches across the full time frame of available data, then the model is likely unable to pick this trend up over the full sample, as it ends up training on conflicting patterns. Figure \ref{fig:train_test_periods_matter} tries to illustrate this point, showing a sucessful training and test period for EURUSD, and also an unsuccessful period , where the training occurs on a period without any trend, while the test period is then a regime of strong trend.This type of issue emerged when training using K fold cross validation. In some instances the training data set happened to be during regimes of strong upward or downward trends, and subsequently the model would perform well in the test phase\footnote{The results of various model performance is covered in section \ref{results}}. 
+\begin{figure}[h]
+    \centering
+% below is where you put the acutal image name in the directory
+	\caption{Do you Feel Lucky? Model Performance Impacted by the Selection of the Training Period}    
+	\includegraphics[width=0.6\textwidth]{train_test_periods_matter}
+  %  below is only a naming convention, above is the real deal
+    \label{fig:train_test_periods_matter}
+     \caption*{}
+\end{figure}
+
+Thus for the model to be able to capture trends, it needed to be trained to \textit{recognise}a trend, therefore, a decision was made to switch the training data away from the historical price series data and onto randomly generated trending data series which could replicate trends in asset price series. Of course when training on randomly generated data one must also include some noise term such that we create series which mimics financial asset prices. Hence the trending data was injected with a noise term.
+Training on randomly generated data has two very appealing traits, one it reduces the chances of overfitting the data, however this is reduced but not removed as there is a chance the randomly generated data series happens by chance to mimic closely the testing phase of the data (hence training of various iterations of the randomly generated data is important). Secondly, it opens up the full live price series data to exist as the test dataset. By training the model to recognise trends, we can now test on the full 120,000 rows of EURUSD price data. 
 
 The randomly generated price series was created using the following formula.
 
@@ -591,13 +617,13 @@ The trend capture model (model one) is described in the below diagram \ref{fig:T
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
-	\caption{Model Architecture :Trend Capture}    
+	\caption{Model Architecture : Trend Capture}    
 	\includegraphics[width=0.6\textwidth]{TrendCapture}
   %  below is only a naming convention, above is the real deal
     \label{fig:TrendCapture}
      \caption*{}
 \end{figure}
- The overall goal of model one is to use machine learning models to identify the pattern and non-linearities inherent in trending prices which more simple linear based models fail to capture.  The type of model also varied form using regression methods to estimate a continuous valued 24 hour period ahead and also a more simple classification on whether the price was predicted to move higher or lower. This one day ahead trend prediction was then used as the input into model two (trend estimation, \ref{fig:TrendEstimation}).
+ The overall goal of model one is to use machine learning models to identify the pattern and non-linearities inherent in trending prices which more simple linear based models fail to capture.  The type of model also varied from using regression methods to estimate a continuous valued 24 hour period ahead and also a more simple classification on whether the price was predicted to move higher or lower. This one day ahead trend prediction was then used as the input into model two (trend estimation, \ref{fig:TrendEstimation}).
 \clearpage
 The second model (figure \ref{fig:TrendEstimation}), then tries to capture the prevailing market regime, and uses much slower moving fundamental data as features (as described in \ref{table:feature2}) in order to assist in position sizing of the trend model, by learning when historical fundamental features have tended to coincide with the positive performance of the trend strategy. This work on the intuitive reasoning behind why a currency exhibits trending behaviour, one process of thought is that economic dispersion between countries \cite{fxalpha} can lead to large trends between currencies as the capital is pulled towards the currency of the economically stronger country. Decision delays by different segments of investors can also influence the slow grind of a higher price, while central bank monetary policy can also lead to large deviations between different countries currencies. Central bank policy can often be driven by economic data and thus looking at economic data we maybe able to identify regimes which are conducive to trending prices series. We also include a volatility feature as well as global and G10 economic performance, which can act as a potential harbinger of further increases in volatility when trend is driven by factors such as risk appetite (where investors flock back to safe haven assets). The target for this model is the performance of the trend model one historically over the testing period. Thus we combine two different models in order to incase the chances of out of sample model generalisation.
  
@@ -612,7 +638,7 @@ The second model (figure \ref{fig:TrendEstimation}), then tries to capture the p
 \end{figure}
 
 \subsection{Machine Leaning Model Parameter Specifications}
-As mentioned previously, three different machine learning models were used in the project.  The testing and training datasets remained standardised across each model so that comparison of results would be as accurate as possible. The python package Sci-Kit was used to build both the random forest and SVC (SVR) models. Parameter variation was performed across a different number of decision trees and from that analysis, 200 trees where used in the final model phase as it was relatively quick to train and also provided good results (\ref{fig:ntrees}). When looking at the results of batch training and testing, we can see that adding more trees to the random forest model did not necessarily add more prediction power. Figure \ref{fig:ntrees} shows the mean squared error scores and the sharpe ratio \footnote{assuming a risk free rate of 0\%} of each model trained across various number of trees and using a 50/50 train and test split. The maximum number of features to be selected at each node (i.e. the max features parameter) was kept low to reduce the correlation between trees and increase model generalisation.
+As mentioned previously, three different machine learning models were used in the project. The testing and training datasets remained standardised across each model so that comparison of results would be as accurate as possible. The python package Sci-Kit was used to build both the random forest and SVC (SVR) models. Parameter variation was performed across a different number of decision trees and from that analysis, 200 trees where used in the final model phase as it was relatively quick to train and also provided good results (\ref{fig:ntrees}). When looking at the results of batch training and testing, we can see that adding more trees to the random forest model did not necessarily add more prediction power. Figure \ref{fig:ntrees} shows the mean squared error scores and the sharpe ratio \footnote{assuming a risk free rate of 0\%} of each model trained across various number of trees and using a 50/50 train and test split. The maximum number of features to be selected at each node (i.e. the max features parameter) was kept low to reduce the correlation between trees and increase model generalisation.
 
 \begin{figure}[h]
     \centering
@@ -634,8 +660,8 @@ Similarly for the Support Vector regression/classifer models used, a review of t
     \label{fig:SVMCost}
      \caption*{}
 \end{figure}
-The recurrent neural network is one model which is very powerful in terms of the complexity and the nature of problems it can in theory solve, however the increased complexity also comes with a loss of generalisation given the propensity to over fit the data. While this in mind, the following model architecture was chosen to train and test the model, an initial first layer of 32 nodes followed by a layer of 16 nodes where the soft max activation function was. The main parameter which was varied in order to assess model performance was the look back sequence and the number of epochs used to train the model. Generally as the project progressed , the higher the number of training epochs and look back sequences the better the model performance, increasing the epoch and look back sequence size noticeably increased the computational time spent training the model.
-
+The recurrent neural network is one model which is very powerful in terms of the complexity and the nature of problems it can in theory solve, however the increased complexity also comes with a loss of generalisation given the propensity to over fit the data. While this in mind, the following model architecture was chosen to train and test the model, an initial first layer of 32 nodes followed by a layer of 16 nodes where the soft max activation function was used, the model adds a dense layer of eight nodes with a hyperbolic tangent activation function and a final output node which uses a linear activation function. The main parameter which was varied in order to assess model performance was the look back sequence and the number of epochs used to train the model. Generally as the project progressed , the higher the number of training epochs and look back sequences the better the model performance, increasing the epoch and look back sequence size noticeably increased the computational time spent training the model.
+\vspace{4mm}
 \begin{lstlisting}
    # Initialise the model the Recurrent Neural Network model
     model = Sequential()
@@ -643,6 +669,8 @@ The recurrent neural network is one model which is very powerful in terms of the
     model.add(LSTM(first_layer,batch_input_shape = (None,look_back,no_features), return_sequences = True))
     # second layer has half the nodes of the previous layer and uses a softmax activation function.
     model.add(LSTM(second_layer, return_sequences = False, activation="softmax"))
+    model.add(Dense(8, activation = "tanh"))
+    model.add(Dense(1, activation = "linear"))
     # finally the model is complied using the MSE and the adam optimser
     model.compile(loss = "mean_absolute_error", optimizer="adam", metrics = ['accuracy'])
     
@@ -652,16 +680,30 @@ Figure \ref{fig:LSTMlookbacks} , shows the accuracy score and the sharpe ratio (
     \centering
 % below is where you put the acutal image name in the directory
 	\caption{LSTM Model Performance Across Lookback Sequences}    
-	\includegraphics[width=0.6\textwidth]{LSTMlookbacks}
+	\includegraphics[width=0.5\textwidth]{LSTMlookbacks}
   %  below is only a naming convention, above is the real deal
     \label{fig:LSTMlookbacks}
      \caption*{}
 \end{figure}
 
+Figure \ref{fig:500EPOCHTraining_accuracy}, shows the accuracy of the LSTM model on the training data for a given number of epochs. We can see a steady downward slope which initially sees vast improvements in the accuracy scores before it finally settles at a stable if slightly jumpy equilibrium. The training data in this instance was the randomly generated data to mimic an asset price trend, so in this training cycle , the model is learning to understand the features and weights which define a trend in the data. It is this learning process which can then start to recognise trends building in EURUSD in the testing phase.
+\begin{figure}[h]
+    \centering
+% below is where you put the acutal image name in the directory
+	\caption{LSTM Model Accuracy Over 500 Epochs}    
+	\includegraphics[width=0.5\textwidth]{500EPOCHTraining_accuracy}
+  %  below is only a naming convention, above is the real deal
+    \label{fig:500EPOCHTraining_accuracy}
+     \caption*{}
+\end{figure}
+
+
+\clearpage
 
 \section{Results, Analysis and Discussion}  \label{results}
 
-The initial model training and testing on the actual price series data did not perform very well, perhaps due to the model overfitting the problem or perhaps from the fact that if the model trained on periods when there was a weak trend, then the model was unable to identify the correct parameters and weights needed to capture any future trends in the price series. In figure \ref{fig:ErraticRetScatter}, we show a scatter plot of the annualised return of trading EURUSD across various machine learning models, training and testing periods and model parameters. For a strategy to be robust in finance, a promising trading strategy would show clustering of the points (i.e. strategy variations )at the top left of the chart (which would indicate an area of desirable return per unit of risk taken) , however in this chart we can see quite scattered points, suggesting there is a severe lack of robustness in the underlying dynamics of the trading model. \newline This may be due to the features used or it may be due to the specification of each underlying model. However, given the justification for the features used in the model, one would be wary of using tweaked priced based features on the sole fact that they perform better, as that is blatant overfitting. One reason for erratic performance of each model is that each model training period may have occurred in periods where the currency was in a regime of mean reversion or weak trend, this could inhibit the performance of the model when in being able to recognise trend patterns. While when the model was trained on a trending price series, the model could learn the patterns associated with auto correlation in the price, and trade this profitably in the testing period. 
+The initial model training and testing on the EURUSD price series performed poorly, perhaps due to the model overfitting the problem or perhaps due to the different training periods not accurately representing the test data of the model.
+In figure \ref{fig:ErraticRetScatter}, we show a scatter plot of the annualised return of trading EURUSD across various machine learning models, train and test periods and model parameters. An acceptable trading strategy needs to be robust and should show clustering of the points despite small tweaks to the model parameters (i.e. showing that varying the strategy parameters does not overly impact the prediction accuracy). In figure \ref{fig:ErraticRetScatter}, we would expect to see a clustering of points near the top left of the chart (which would indicate an area of desirable return per unit of risk taken).  However, we can see points scattered across the chart, suggesting there is a severe lack of robustness in the underlying dynamics of the trading model.
 
 \begin{figure}[h]
     \centering
@@ -673,27 +715,31 @@ The initial model training and testing on the actual price series data did not p
      \caption*{}
 \end{figure}
 
-The poor performance of the various models on the live price data in capturing trend was disappointing, however, we refrained from running an exhaustive grid search type optimisation on the data as this will only lead to overfitting of the problem, when one runs so many simulations across different parameters (especially in finance) then it is inevitable that we uncover an acceptable strategy by luck (similar to a coherent novel being written by a billion monkeys typing on a typewriter). Given the inherent non stationarity of financial timeseries, it is vital to ensure the model performs in a stable way across a variety of parameters. This rules out running complex transformations or optimisations on the features (outside of kernel methods inherent in the SVM model) as the probability of having selected the "best" parameters by pure chance is high. In financial trading, model robustness is key. \newline As pointed out by Mclean et al.\cite{Mclean2016}, financial model performance can differ vastly prior to publication than after it\footnote{Research suggested a 26\% fall in performance out-of-sample and 58\% decline post publication}, whether due to over fitting or post publication anomaly decay \cite{Bartram2019}, this means we must be extra vigilante when assessing model performance.
 
-In the sections below, we show the return profile for a host of different trading models performance across support vector machines, recurrent neural networks and random forest. The returns shown in  \ref{fig:model_perf} display the model performance for various different training and testing periods. The returns are calculated from the backtester outlined in section \ref{backy}. The cumulative returns shown are the log returns of each specific model when trading EURUSD, overly randomly sampled 400 day periods. The performance is erratic and scattered across winning and losing strategies . It was due to this under performance and lack of robustness which led to the need to look at alternative avenues when training the model.
+Figure \ref{fig:model_perf} shows the cumulative return profile for a host of different machine learning trading models across support vector machines, recurrent neural networks and random forests. The returns shown in  \ref{fig:model_perf} display the model performance for various different training and testing periods. The returns are calculated from the backtester outlined in section \ref{backy}. The returns shown on the y -axis are the cumulative log returns of each specific model when trading EURUSD, over randomly sampled 400 day periods. The performance is erratic and scattered across winning and losing strategies. It was due to this under performance and lack of robustness which led to the need to look at alternative model architectures when training the model.
 
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
 	\caption{Erratic Returns of Machine Learning Based Trading Models}    
-	\includegraphics[width=0.6\textwidth]{ModelPerformance}
+	\includegraphics[width=0.6\textwidth]{PoorModelPerf}
   %  below is only a naming convention, above is the real deal
     \label{fig:model_perf}
      \caption*{}
 \end{figure}
- Due to this lack of stability in the each models performance, a different methodology was needed and instead each model was now trained on randomly generated data as outlined in \ref{fig:random} Using randomly generated price series allows us to calibrate the strength of trend (and the significance of the noise) when training each model on how to recognise trending price series. The goal here is to allow the model to recognise the dynamics and patterns of a trending price series, and thus removes the risk that the training period of the live price series lacks any sustainable trend. 
+
+\myparagraph{Potential Reasons for the Underperformance}
+The erratic performance of the machine learning models when training on the price data may be due to the features used or due to the specification of each underlying model. However, given the justification for the features used in the model as outlined in \ref{justify}, one should be wary of using tweaked technical features  solely because they perform better, as that is blatant overfitting. One reason for the erratic performance of each model is that the training period may have occurred in periods where the currency was in a regime of mean reversion or weak trend. This could inhibit the ability of the model to recognise trends. While if the model had trained on a trending price series, then it could learn the patterns associated with the auto correlation in the price, and trade this profitably in the testing period. \newline 
+The poor performance of the various models on the live price data in capturing trend was disappointing, however, a decision was made to refrain from running an exhaustive grid search optimisation on the data as this would lead to overfitting of the problem. When one runs multiple simulations across different parameters (especially in finance) then it is inevitable that a profitable strategy is found by luck (similar to a coherent novel being written by a billion monkeys typing randomly on a typewriter). Given the inherent non-stationarity of financial timeseries, it is vital to ensure the model performs in a stable way across a variety of parameters. This rules out extensively applying complex transformations or optimisations on the features as the probability of having selected the "best" parameters by pure chance is high. In financial trading, model robustness is key. \newline As pointed out by Mclean et al.\cite{Mclean2016}, financial model performance can differ vastly prior to publication than after it\footnote{Research suggested a 26\% fall in performance out-of-sample and 58\% decline post publication}, whether due to over fitting or post publication anomaly decay \cite{Bartram2019}, this means we must be extra vigilante when assessing model performance.
+
+Due to this lack of stability in the performance, a different approach was needed. The new approach was to switch the training periods away from the actual price series and towards randomly generated trending data. Using randomly generated price data allows us to calibrate the strength of trend (and the significance of the noise) when training each model on how to recognise trending price series. The goal here is to allow the model to recognise the dynamics and patterns of a trending price series (as the goal of model one is to capture trend only), and thus removes the risk that the training period of the live price series lacks any sustainable trend. The number of data points used to train the models was 50,000 for the Support Vector Machines and Random Forests, while 4000 points were used for the LSTM (in the interest of reducing the time spent training the model). The test data set consisted of the full history of EURUSD data which equated to over 115,000 data points\footnote{Some data is lost due to the rolling standardisation lookback window}. The 24 hour ahead percentage return of EURUSD was the target vector.
 
 \subsection{Performance of Model One: Trend Capture} \label{model1}
 
-This section outlines how various machine learning models performed in trying to predict EURUSD direction having been trained only on randomly generated trending price series. Each of the models here were trained as classifiers such that precision an drecall could be calculated but also due to the fact that the returns tended to be more robust. This is possibly due to the fact that the regression models tended to have be skewed by large values that can occur in financial time series, which meant that when a classifier of the move (up or down ) was used, this helped to dampen the volatility of the signal and removed the impact of outliers on the models ability to learn the patterns of the model.
+This section outlines how various machine learning models performed when trying to predict EURUSD direction having been trained only on randomly generated trending price series. Each of the models here were trained as binary classifiers such that precision and recall could be calculated but also due to the fact that the returns tended to be more robust than when compared to models which predicted continuous variables. This is possibly due to the fact that the regression models tended to be skewed by large values that can occur in financial time series, which meant that when a classifier of the move (up or down ) was used, this helped to dampen the volatility of the signal and removed the impact of outliers on the models ability to learn the patterns of the model.
 
 \subsubsection{Decision Trees: Random Forest}
- The first model tested after training on the randomly generated trend was the random forest machine learning model. Figure \ref{fig:RFRandomDataResults} shows the cumulative log return of trading EURUSD across various iterations of the models trained on different randomly generated datasets. The models below used 200 trees and a maximum of four features when using selecting node splits. The testing period here is the full dataset which spans from the start of 2002 to the end of 2017. This testing period covers various different market regimes, such as the Great Financial Crisis, unorthodox central bank policies from 2010 on wards and the end of the commodity super cycle. 
+ The first model tested after training on the randomly generated trend was the random forest machine learning model. Figure \ref{fig:RFRandomDataResults} shows the cumulative log return of trading EURUSD across various iterations of the models trained on different randomly generated datasets. The models below used 200 trees and a maximum of four features when selecting node splits. The testing period here is the full dataset which spans from the start of 2002 to the end of 2017. This testing period covers various different market regimes, such as the Great Financial Crisis, unorthodox central bank policies from 2010 onwards and the end of the commodity super cycle. The model features used were outlined previously in \ref{table:feature}.
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
@@ -703,20 +749,20 @@ This section outlines how various machine learning models performed in trying to
     \label{fig:RFRandomDataResults}
      \caption*{}
 \end{figure}
-In terms of results, the returns are still somewhat scattered, however the performance on average is positive. The red line in the chart denotes the performance of a simple linear benchmark strategy of trading in the direction of  the price trend over the last 24 hours, we use this 24 hour period as it matches the trade horizon that the model used as its target variable. In effect, saying that a simple linear strategy predicts what will happen in the next 24 hours by looking at what occurred in the previous 24 hours.
+In terms of results, the returns are still somewhat scattered, however the performance on average is positive. The red line in the chart denotes the performance of a simple linear benchmark strategy of trading in the direction of  the price trend over the last 24 hours, we use this 24 hour period as it matches the trade horizon that the model used as its target variable. Thus the benchmark linear strategy predicts the next 24 hours ahead currency move by looking at what occurred in the previous 24 hours.
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
 	\caption{Performance Statistics: Random Forest Based Trading Model}    
-	\includegraphics[width=0.8\textwidth]{RFRandomDataStatsv2}
+	\includegraphics[width=0.8\textwidth]{RFRandomDataStatsv3}
   %  below is only a naming convention, above is the real deal
     \label{fig:RFRandomDataStats}
      \caption*{}
 \end{figure}
-In addition to the cumulative returns of the strategy, we also shown a break down of each models performance statistics in figure \ref{fig:RFRandomDataStats}, which are broken down to provide the annualised return and volatility, the sharpe ( risk taken to reward received), the ratio of largest gain to largest loss and finally the precision and recall of each model.
+In addition to the cumulative returns of the strategy, we also shown a break down of each models performance statistics in figure \ref{fig:RFRandomDataStats}, which are broken down to provide the annualised return and volatility, the Sharpe ratio ( risk taken to reward received), the max and min return of each model, the mean squared error (MSE) and the precision and recall. We can see that on average the machine learning models do outperform the benchmark in terms of the MSE, accuracy and Sharpe ratios. The maximum daily return of each model was higher than the benchmark while each ML model also performed better in terms of annualised returns. Overall random forest model was able to identify trending patterns and profitably trade them better than the simple linear benchmark.
 
 \subsubsection{Support Vector Classifiers}
-The performance of the support vector classifier was mixed, with some models tending to under perform the simple linear benchmark. One particular model (labelled SV2) in figure \ref{fig:SVMRandomDataResults}, performed very well up until the fina few years of the sample, perhaps as this coincided with a period of mean reverting behaviour in EURUSD. Overall , the SVM model performed somewhat disappointingly over the full sample.
+The performance of the support vector classifier was mixed, with some models tending to underperform the simple linear benchmark. As a reminder, the SVC used the radial basis kernael and the train period was 50,000 rows of randomly generated trend data while EURUSD from 2002 until 2017 was the test period. One particular model (labelled SV2 in figure \ref{fig:SVMRandomDataResults},) performed very well up until the final few years of the sample, perhaps as this coincided with a period of mean reverting behaviour in EURUSD. Overall , the SVM model performed somewhat disappointingly over the test full sample.
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
@@ -727,13 +773,13 @@ The performance of the support vector classifier was mixed, with some models ten
      \caption*{}
 \end{figure}
 
-The performance statistics shown in \ref{fig:SVMRandomDataStats} show the under performance of the models in general, as they show low or negative Sharpe ratios alongside underwhelming max gain to max loss ratios. Interestingly, the precision and recall scores are the same if not partly better than same scores for the random forest model, and this showcases the fact that classification accuracies do not tell us the full story when analysing financial timeseries. While the SVM models teneded to have relatively impressive precision and recall scores, this did not translate into strong trading signal performance as the model likely misclassifed the higher volatility time periods, leading to larger average losses than equivalent average gains. 
+The performance statistics shown in \ref{fig:SVMRandomDataStats} show the under performance of the models in general, as they show low or negative Sharpe ratios alongside underwhelming accuracy rates. The average mean squared error of the SVM models were inline with the linear benchmark.
 
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
 	\caption{Performance Statistics: Support Vector Classifier Based Trading Model}    
-	\includegraphics[width=0.8\textwidth]{SVMRandomDataStatsv2}
+	\includegraphics[width=0.8\textwidth]{SVMRandomDataStatsv3}
   %  below is only a naming convention, above is the real deal
     \label{fig:SVMRandomDataStats}
      \caption*{}
@@ -741,7 +787,7 @@ The performance statistics shown in \ref{fig:SVMRandomDataStats} show the under 
 
 \clearpage
 \subsubsection{Long Short Term Memory Trading Model}
-The recurrent neural network such as the LSTM provided probably the most impressive results, with the majority of models outperforming the linear benchmark \ref{fig:LSTMRandomDataStats}. All of the lSTM models here used an initial layer of 32 nodes , with an additional layer containing 16 nodes and using the softmax activation. The length of the lookback sequence here was 90 periods.
+The recurrent neural network such as the LSTM provided the most impressive results along with the random forest module, with the majority of models outperforming the linear benchmark \ref{fig:LSTMRandomDataStats}. All of the LSTM models here used an initial layer of 32 nodes , with an additional layer containing 16 nodes and used the softmax activation function. The length of the lookback sequence here was 90 periods while each model was compiled to use the mean square error as the loss function and the "adam" stochastic optimiser. The training period was run over 500 epoch across 4,000 data points. 
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
@@ -752,22 +798,21 @@ The recurrent neural network such as the LSTM provided probably the most impress
      \caption*{}
 \end{figure}
 
-In terms of the statistics, we do see on average positive returns from the LSTM models and they do outperform the linear benchmark in terms of sharpe ratio as well. In fact model 3 and 4 in the sample have positive max gain to max loss ratios, suggesting they may exhibit positive skewness to their returns., Overall the LSTM models looked most promising in terms of capturing the trend in the price series.
-
+The performance statistics \ref{fig:LSTMRandomDataStats} show that the average return across all models  is positive and on a individual basis only model 4 underperformed the linear benchmark in terms of the Sharpe ratio, accuracy, mean squared error and maximum return.  Accuracy, precision and recall scores all ranged from 40\% to above 50\% across all the models, while this is may not seem very good, the fact that the correct predictions outperform the incorrect predictions in terms of percentage return (otherwise the average returns would be negative), then the model does seem to be able to predict the larger moves in the currency. Based on the results, the LSTM models do seem to be best suited to recognising and predicting trends in financial timeseries.
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
 	\caption{Performance Statistics: Long Short Term Memory Based Trading Model}    
-	\includegraphics[width=0.8\textwidth]{LSTMRandomDataStatsv2}
+	\includegraphics[width=0.8\textwidth]{LSTMRandomDataStatsv3}
   %  below is only a naming convention, above is the real deal
     \label{fig:LSTMRandomDataStats}
      \caption*{}
 \end{figure}
-
-The outperformance of the LSTM model, does suggest that it is important for the model to understand the historical sequence of the data points such that the patterns of trend can sustain long enough for the model to recognise the sequence of points which form a part of a trending price series. This result is also seen in citeLim2019 where their LSTM model outperformed other machine learning models. In citeLIM2019, they used 100 epochs for training , while in this paper 500 epochs were used.
+\vspace{3mm}
+The outperformance of the LSTM model suggests that it is important for the model to understand the historical sequence of the data points such that the patterns of trend can sustain long enough for the model to recognise the sequence of points which form part of a trending price series. This result is also seen in \cite{Lim2019} where the LSTM model outperformed all other machine learning models. Lim et. al used 100 epochs for training \cite{Lim2019}, while in this paper 500 epochs were used to train the model on the randomly generated data, with a sequence look back of 90 periods in the testing phase.
 
 \subsection{Performance of Model Two: Regime Estimation}
-The section looks at the performance of the trend estimation model, where we feed in the performance of each trend model ( \label{model1}) and use fundamental features, such as economic growth differentials, historical volatility and the state of global growth to identify periods which can be conducive to the positive performance of currencies. The approach taken in this stage of the trading process was split the dataset into one batch training which consisted of the period from 2002 until 2010 and a test period form 2010 until the end of 2017. The model chosen for trend estimation was a simple random forest decision tree as this type of model does not require a large training dataset and also as the model itself can allow us to build simple charts showing the decision making process of the model itself. A simplified tree structure is shown for one of the trend models in \ref{fig:decision_tree_model}. In this instance, only three features were used, global economic data momentum, the economic performance differential between the United States and Euro Area and the Economic surprise differential between the US and Euro Area \footnote{An economic surprise measures the difference between the actual economic release value and the economists consensus expectation}.
+This section looks at the performance of the trend estimation model, where we feed in the performance of each trend model (as outlined in \ref{fig:TrendCapture}) and make use of the fundamental features, such as economic growth differentials, historical volatility and the state of global growth to identify periods which can be conducive to the positive performance of trend strategies. The approach taken in this stage of the trading process was split the dataset into one batch training which consisted of the period from 2002 until 2010 and a test period from 2010 until the end of 2017. The model chosen for trend estimation was a simple random forest decision tree as this type of model does not require a large training dataset and can provide important information about the importance of each feature via the variable importance plots. A simplified tree structure is shown for one of the trend models in \ref{fig:decision_tree_model}. In this instance, only three features were used, global economic data momentum, the economic performance differential between the United States and Euro Area and the Economic surprise differential between the US and Euro Area \footnote{An economic surprise measures the difference between the actual economic release value and the economists consensus expectation}.
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
@@ -777,20 +822,20 @@ The section looks at the performance of the trend estimation model, where we fee
     \label{fig:decision_tree_model}
      \caption*{}
 \end{figure}
-The graphic of the decision tree structure shows that when the economic performance differential between Euro Area and the US has been below -2 standard deviations, then the trend model in this case under performed. Hence we can see that the goal of the trend estimation model is to align the fundamental factors with periods then the trend capture model has performed well, allowing the second trend estimation model to try to switch on and off the trend model when the regime is not conducive to the performance of trend (based on those historical patterns).
+The decision tree structure of the first split shows that when the economic performance differential between Euro Area and the US has been below -2 standard deviations, then the trend model has under performed. Hence we can see that the goal of the trend estimation model is to align the fundamental factors with periods that the trend capture model has performed well, allowing the second trend estimation model to switch off the trend model when the regime is not conducive to the performance of trend (based on those historical patterns between the trend model performance and the fundamental features).
 \clearpage
-When running the trend estimation model, given the number of possible features across various different lookback horizons and the number of feature combinations, a variable importance plot was created to try to understand which features may have the most explanatory power, a variable importance plot is created by shuffling the features and running the model each time without one feature to try to uncover how much value that feature adds to the overall prediction ability of the model, this feature selection study occurred in the training period only. \newline In this case, one trains on daily data only and hence we look to reduce the models dimensionality by selecting a few sub components of the most interesting features. The variable importance chart is shown below in figure \ref{fig:varimp_RF_erf}.
+When running the trend estimation model, given the high number of possible features (and features combinations) across various different lookback horizons, a variable importance plot was created to try to understand which features may have the most explanatory power. A variable importance plot is created by shuffling the features and running the decision tree model each time without one feature to try to uncover how much value that feature adds to the overall prediction ability of the model. \newline  This feature selection study occurred in the training period only. In this case, one trains using daily data\footnote{As fundamental economic data is only available on a daily time frequency} and hence we look to reduce the model dimensionality by selecting a few sub components of the most interesting features. The variable importance chart is shown below in figure \ref{fig:varimp_RF_erf}.
 
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
-	\caption{Performance Model 2 Trend Estimation Across Each ML Model Trading Model}    
-	\includegraphics[width=1\textwidth]{varimp_RF_erf}
+	\caption{Variable Importance Plots of the Features During Training Period}    
+	\includegraphics[width=1\textwidth]{varimp_LSTM1_erf}
   %  below is only a naming convention, above is the real deal
     \label{fig:varimp_RF_erf}
      \caption*{}
 \end{figure}
-We can see that certain features do trend to outperform other features in the level of their predictability. This this allows us to reduce the dimensionality of the model as some of the features are likely redundant. The trend estimation model worked on a daily basis and predicted the performance the trend model one month ahead.  Figure \ref{fig:TrendFilteredResults}, shows the performance of a selection of trend models from each of the three models which have been fed into the trend estimation model and trained on how each individual model has performed given the economic, macro risk and volatility features shown above.
+We can see that certain features do trend to outperform other features in the level of their predictability. This this allows us to reduce the dimensionality of the model as some of the features are likely redundant. The trend estimation model predicted the performance the trend model one month ahead.  Figure \ref{fig:TrendFilteredResults}, shows the performance of a selection of trend models from each of the three models (RF, SVM, LSTM) which have been fed into the trend estimation model and trained on how each individual model has performed given the economic, macro risk appetite and volatility features shown above.
 
 \begin{figure}[h]
     \centering
@@ -802,24 +847,24 @@ We can see that certain features do trend to outperform other features in the le
      \caption*{}
 \end{figure}
 
-Figure \ref{fig:TrendFilteredResults}, shows the performance statistics of the models once having been filtered by the trend. The testing period ran from December 2010 until December 2017. The red lines denote the average cumulative performance of all the different trend models created using a particular machine learning model. The blue lines denote the average performance across the models tested of the same strategies when they have been filtered by the trend estimation model. The trend estimation model would reduce the exposure of the trend model to zero if it had foretasted a loss in the strategy over the next one month.  
-
-The performance statistics on average across all three models once having been filtered by the trend estimation model are shown in \ref{fig:TrendEstimationSTATS}, on average across all the models, applying trend estimation either increased the average return or reduced a trading strategies' maximum drawdowns (a trading models high to low cumulative losses).
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
 	\caption{Performance Statistics Model 2 Trend Estimation Average Performance Per Trading Model}    
-	\includegraphics[width=0.6\textwidth]{TrendEstimationSTATSv2}
+	\includegraphics[width=0.6\textwidth]{TrendEstimationSTATSv3}
   %  below is only a naming convention, above is the real deal
     \label{fig:TrendEstimationSTATS}
      \caption*{}
 \end{figure}
 
-Overall, the two models do tend to work well together and there does seem to be some value in diversifying the decision making process across different models with different mandates.
+Figure \ref{fig:TrendFilteredResults}, shows the performance statistics of the models once having been filtered by the trend. The testing period ran from December 2010 until December 2017. The red lines denote the average cumulative performance of all the different trend models created using a particular machine learning model. The blue lines denote the average performance across the models tested of the same strategies when they have been filtered by the trend estimation model. The trend estimation model would reduce the exposure of the trend model to zero if it had predicted a loss in the strategy over the next one month.  
 
+The performance statistics on average across all three models once having been filtered by the trend estimation model are shown in \ref{TrendEstimationSTATS}, on average across all the models, applying trend estimation either increased the average return or reduced a trading strategies' maximum drawdowns (a trading models high to low cumulative losses).
+
+Overall, the two models do tend to work well together and there does seem to be some value in diversifying the decision making process across different models with different specific objectives. Future work in this area could involve a method of transfer learning , where the model trains on the randomly generated data first to recognise the basics of trend, and then train on selected assets which have exhibited trending behaviour so that the model has experienced real world data, finally once these patterns have been learned the trend model could then be tested on the an asset price where the tredn capture model would switch that exposure on and off as the regime changes. 
+\clearpage
 \subsection{Performance on Blind Test Data}
-In this section, we look at the performance of the finalised models and model architectures on a fully unseen set of EURUSD data, this dataset was only used in the last stage of the project to provide an indication of how the model may have performed if it had been created at the end of 2017. We show the performance of the trend model and the overlay of the trend estimation model. The linear benchmark is shown in red (once again, this is the performance of trading in the direction of the previous 24 hour trend of the currency). One clear takeaway is that the machine learning models were much less volatile than the benchmark, and two of the machine learning models outperformed the linear benchmark over the full period of the test. While there is not enough data to draw statistical conclusions from the blind test results, there is evidence that the models and proposed model architecture proposed in this paper can indeed be used in the domain of currency trading. The fact that the trend estimation model was able to identity the fact of a lack of sustained trend allowed the support vector machine trade trending price behaviour only when the probability of trend working was high.
-
+In this section, we look at the performance of the finalised models and model architectures on a fully unseen set of EURUSD data, this dataset was only used in the last stage of the project to provide an indication of how the model may have performed if it had hypothetically been created at the end of 2017 (when the test data ended). We show the performance of the trend model combined with the trend estimation model. The linear benchmark is shown in red (once again, this is the performance of trading in the direction of the previous 24 hour trend in the currency, \ref{fig:BLINDFULLSYSTEMRES}).
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
@@ -829,59 +874,38 @@ In this section, we look at the performance of the finalised models and model ar
     \label{fig:BLINDFULLSYSTEMRES}
      \caption*{}
 \end{figure}
+The model is once again trained on the randomly generated data and then tested on EURUSD price from February 2018 until March 2019 using the same models and specifications as outlined earlier. 
+ One clear takeaway is that the machine learning models were much less volatile than the benchmark, and two of the machine learning models outperformed the linear benchmark over the full withheld testing period. While there is not enough data to draw statistical conclusions from the blind test results, there is evidence that the model architecture proposed in this project can indeed be used in the domain of currency trading. The fact that the trend estimation model was able to identity the lack of sustained trend allowed the support vector machine to trade trending price behaviour only when the probability of trend working was high.
 
+The model statistics are shown in \ref{fig:BLINDFULLSYSTEMRES_stats}, the accuracy rates  and mean squared error percentages of the machine learning trend models after applying the model two trend estimation outperforms the linear benchmark for all models. Each machine learning model also outperforms its linear bench mark in terms of the mean annualised returns with lower standard deviation of returns and a vastly reduced drawdown profile.
 
 \begin{figure}[h]
     \centering
 % below is where you put the acutal image name in the directory
 	\caption{Trading System Performance Fully Unseen Live Data}    
-	\includegraphics[width=0.6\textwidth]{BLINDFULLSYSTEMRES_stats}
+	\includegraphics[width=0.6\textwidth]{BLINDFULLSYSTEMRES_statsv2}
   %  below is only a naming convention, above is the real deal
     \label{fig:BLINDFULLSYSTEMRES_stats}
      \caption*{}
 \end{figure}
 
-The model statistics are shown in \ref{fig:fig:BLINDFULLSYSTEMRES}, the accuracy hit rates of the trend models after applying the model two trend estimation is positive for all models. Each machine learning model also outperfoms its linear bench mark and have lower standard deviation of returns and higher average annualised returns.
 
 \clearpage
-
 
 
 \section{Conclusions} \label{conclusions}
-Allow the thesis to bite itself in the tail, blind testing results, the possibility that this model actually works and how can you train/test better? Look at your self in the mirror, what have you learned and what are the takeaways for future work.
 
+The goal of this project was to assess the applicability of machine learning algorithms in the domain of currency trading. This was done by exploring the most appropriate way in which to use machine learning models to predict currency moves. Initially training the model using historical price data did not perform consistently across different models or features. This is in some way not overly surprising given the inherent heteroskedasticity and efficiency of financial markets. One of the main takeaways of the paper is that we cannot expect machine learning algorithms to perform the heavy lifting of price prediction alone. Financial trading is a multi faceted problem and requires the person developing the trading system to have a deep understanding of the subject domain in order to select and find underlying intuitive reasons to justify the model features or parameter specifications. 
+\vspace{4mm}
 
-In this section , we provide some discussion on the results and the possible implications of the work shown here.
-How did it perform? what worked best, what are some of the interesting takeaways and further work that needs to be explored here?
+\par Creating robust models is key to the longevity of a trading model. Overly complicated algorithms will not be able to withstand the test of time in a trading system as they will have over fitted recent history. To try to avoid some of these pitfalls, this paper delegated trading responsibilities to two separate models. Thereby helping to simplify the problem into two distinct problems, one of trend capture and the second of regime identification. Asking the machine learning model to work on one task (identify trend) allows us to simplify the model structure and narrow the number of features used. Predicting trend as opposed to price removes some of the overfitting risk as we are not trying to predict future return based on a host of features, but only find more efficient and accurate ways to capture price momentum. Machine learning models may outperform linear trend models by being able to identify the non-linearities which may help in the early identification of a trend (either beginning or ending). Selecting this trend capture model also allowed us to train the model on randomly generated trending data, which in future could be expanded to allow the model to include transfer learning algorithms which train on both random data and live prices before proceeding to the test stage.
+\vspace{4mm}
+\par In the second stage of the trading architecture (regime estimation), a random forest model was used to try to understand the complexities between macro-economic data and currency trends. The results presented showcased that the second model was able to identify regimes conducive to the positive performance of trend strategies. Future work in this area could look at adding additional factors such as a mean reversion model to the trend strategy such that the regime estimation model switches between trend and mean reversion based on the probability of a certain regime occurring. Given the simplicity of the model architecture, this type of framework could be scaled up for a multitude of different models which capture various behaviours and various regimes across different asset classes. This project could also be expanded to include new features measuring investor sentiment, positioning, market trading conditions and seasonality. Adding diverse strategies to the model architecture would translate into a higher probability of generalising into the future regardless of the regime.
+\vspace{4mm}
+
+\par Overall, the project outlined one way in which machine learning can be used in the domain of financial trading and showcased how separating out duties to two different models can assist in adding robustness to the trading returns.  The results showed promising signs of out of sample success, where the returns were displayed for a host of different strategies and not just the best one.
+Machine Learning and artificially intelligent systems will likely see their role in financial markets increase over the course of the next decade as the industry evolves, however in terms of trading algorithms, machine learning methods will remain just one piece of a very large and complex puzzle. There is potential for machine learning methods to outperform standard econometric models however this will still need to be combined with expert domain knowledge, risk management systems, a robust testing framework and data which holds informational value. Above all however, purveyors of the art of financial machine learning will need to remain humble, acknowledge that past performance is rarely an exact guide to the future and that success relies on diversification, hard work and unfortunately...luck.
 \clearpage
-
-
-additional commentary - to be removed/ or included.
-Objective 3: Model Training/Fine Tuning and Architecture Selection
-The model training stage allows the learning algorithm to understand and capture the relationship between the features and the classification target vector (the target vector will be the future direction of the asset price across various time periods, both regression and classification models will be tested). Prior research has generally used binary classification of the future asset price move when developing models(\cite{Abreu2018},\cite{Gunduz2017},\cite{Chatzis2018}). \newline Model training will also allow us to tune parameters to help understand which combination of models (ANN, RNN, PNN ,SVM, RF) and underlying architecture (hidden layers, number of decision trees) are best suited to capturing the nuances in the data. This stage of the process will also allow experimentation with various  models to see the differences in performance. Various Python packages such as Sci-Kit Learn and Keras were used in order to create and test the classification success rates of each type of model. Fischer et al. made use of Keras (on top of Google's Tensorflow) to implement Recurrent Neural Networks (RNN) \cite{Fischer2018} while using Sci-Kit Learn for logistic regression, SVM and Random Forest methods. \newline One issue encountered was that the length of time needed to train the LSTM meant that training multiple variations across parameters was challenging from a time perspective. Three model architectures were used, LSTM, Random Forests and Support Vector Machines. One novel approach to use in selecting the target vector was to used a risk adjusted return and predict the risk adjusted return as opposed to the binary return, this means that the trend model can also estimate the positioning size and negates the need for a separate trade risk adjustment to be made.  This was shown to provide interesting results in a paper on time series momentum from B Lim ADD!
-
-The model was run on a cloud server however it was seriously slow!!!! total LSTM training would have taken over 50 hours!
-
- 
-Objective 4: Model Validation
-In order to validate the model, the selected model and its structure will need to be tested in a similar setting to real world trading. This requires the construction of a backtesting engine which can simulate each models performance taking into account transaction costs and the funding costs associated with trading currencies.
-This will provide a much more accurate analysis of the selected trading strategy performance\footnote{The vast majority of research papers referenced in this thesis did not perform this type of testing}. While classification success rates will be important in gauging model accuracy, high classification rates may not lead to positive strategy performance if large currency moves are mis-classified.
-Go over the full cycle of how you trained and tested the model please...
-
-
-
-Performance Evaluation
-Analysing and outlining model performance will be one of the key objectives to be satisfied in the final stages of the project.
-In light of the findings from (\cite{Arnott2018},\cite{Bailey2013}), which highlight in detail the pitfalls inherent in systematic trading, the below outlines an approach to reviewing and evaluating model performance to standards generally set in financial institutions.
-
-Results Across All Model Iterations
-Keeping track of the number of models being tested is very important as it can help define the statistical likelihood of finding a strategy that is a true positive. Even given 20 randomly selected strategies, there is a non-negligible probability that one strategy will beat the threshold needed for a statistical significance \cite{Arnott2018}. Thus, the number of trials run must be considered so we can deflate the statistical significance of the strategy performance as a function of the number of trials\cite{Bailey2011}.
-Cross Validation
-Splitting the dataset into various training and test sets will be very important in being able to assess model performance. The most common cross validation techniques are K-fold cross validation and Leave-One-Out cross validation. This project will use a training set, validation set and finally a test dataset which will be held out until the final model has been selected. This will provide a useful gauge of out of sample performance\footnote{In depth study of cross validation techniques outlined in \cite{Bergmeir2012}}.
-Problem of Dimensionality
- In finance, the lack of sufficient data (price) vs the number of possible predictors does lead to the issue of dimensionality, where we can add further features but not necessarily add further data points to be tested. Thus the model proposed here will remain cognizant of the number of features being used and will try to reduce the probability of finding false positive trading strategies. The dimensionality of the current data set will involve one target vector (i.e. future price move) and 17-20 predictor columns as outlined in \ref{table:feature}.
-Out-of-Sample Testing on Unseen Data
- As stated by Arnott et al \cite{Arnott2018}, selection of model inputs is inherently biased (especially when done by domain experts) as the experts use heuristics to choose what they find the most economically intuitive as predictors, thus even out of sample test results are not fully out of sample. To override some of these concerns, this paper proposes to omit one years worth of data from any analysis until the model and related architecture has been fully completed and the selected model or model architecture has been finalised. Then the chosen model will be blind tested on the final year of data that has been held back to give the best approximation of how the chosen model might have performed. 
 
 \bibliography{ref_list}{}
 \bibliographystyle{ieeetr} % could also use apalike, ieeetr , abbrv
@@ -889,5 +913,47 @@ Out-of-Sample Testing on Unseen Data
 % this moves us to a new page...
 \clearpage
 
+\appendix
 
+\section{Appendix}
+
+\subsection{List of Data Files Included in Project}
+
+\begin{table}[h] 
+\centering      % used for centering table 
+\caption{Data Files Included in Report} % title of Table 
+\resizebox{.75\textwidth}{!}{%
+
+\begin{tabular}{l l}  % centered columns (2 columns) 
+\hline                     %inserts double horizontal lines 
+\hline                     %inserts double horizontal lines 
+File Name & Desc. \\ [0.5ex] % inserts table %heading
+ \hline                    % inserts single horizontal line 
+eurusd\textunderscore hour.csv & EURUSD Hourly Price\\   % inserting body of the table
+CurrencyData.csv & G10FX Hourly Price \\ [1ex]
+EDI.csv & Econ Data  \\ [1ex]
+ESI.csv & Econ Data \\ [1ex]
+CcyrandomTrend.csv & Randomly Generated Data \\ [1ex]
+CcyrandomTrendLSTM.csv & Randomly Generated Data \\ [1ex]
+CcyDataLONGER.csv & Data with Features \\ [1ex]
+ccyDataBLIND\textunderscore STFEATURES.csv & Withheld Data Features \\ [1ex]
+trendestimation.csv & Data for Trend Estimation \\ [1ex]
+trendestimation\textunderscore manual.xlsx & Data for Trend Estimation\\ [1ex]
+trendestimation\textunderscore manual\textunderscore BLIND.xlsx & Withheld Data, for Trend Estimation \\ [1ex]
+Signals.csv & Raw Signals for Trend Estimation\\[1ex]
+Signals\textunderscore blindData.csv & Withheld Data, Raw Signals for Trend Estimation \\[1ex]
+Signals\textunderscore FullsamplewBlind.csv & Full Sample Signals For Trend Estimation\\[1ex]
+\hline     %inserts single line 
+\end{tabular} %
+}
+\label{table:files} % is used to refer this table in the text 
+\end{table} 
+
+\subsection{Code Used in the Project}
+
+\lstinputlisting[language=Python, caption = Code to Generate Random Trending Data]{generate_trend.py}
+\lstinputlisting[language=Python, caption = Code to Create Model Features]{create_model_features.py}
+\lstinputlisting[language=Python, caption = Code Containing Model Functions]{model_functions.py}
+\lstinputlisting[language=Python, caption = Code to Set Parameters of the Models]{run_decision_tree.py}
+\lstinputlisting[language=Python, caption = Code to Set Parameters for the Keras \& Tensor flow modules]{ml_trading_module.py}
 \end{document}

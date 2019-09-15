@@ -67,7 +67,22 @@ year = {2013}
 }
 
 
+@misc{fxalpha,
+  author = {Sciulli, Emidio},
+  title = {{Is There Any Alpha Left in FX}},
+  howpublished = "\url{https://www.man.com/maninstitute/is-there-any-alpha-left-in-FX}",
+  year = {2015}, 
+  note = "[Online; accessed 10-September-2019]"
+}
 
+
+@misc{posskew,
+  author = {Greenwood, Mark},
+  title = {{In Persuit of Positive Skew}},
+  howpublished = "\url{https://www.merian.com/gb/en/institutional/insights/in-pursuit-of-positive-skew/}",
+  year = {2017}, 
+  note = "[Online; accessed 11-September-2019]"
+}
 
 
 
@@ -113,13 +128,16 @@ isbn = {0780377028},
 title = {{Forecasting of currency exchange rates using ANN: A case study}},
 year = {2003}
 }
-@unpublished{LopezdePrado2015,
-abstract = {This paper introduces the Hierarchical Risk Parity (HRP) approach. HRP portfolios address three major concerns of quadratic optimizers in general and Markowitz's CLA in particular: Instability, concentration and underperformance.  HRP applies modern mathematics (graph theory and machine learning techniques) to build a diversified portfolio based on the information contained in the covariance matrix. However, unlike quadratic optimizers, HRP does not require the invertibility of the covariance matrix. In fact, HRP can compute a portfolio on an ill-degenerated or even a singular covariance matrix, an impossible feat for quadratic optimizers. Monte Carlo experiments show that HRP delivers lower out-of-sample variance than CLA, even though minimum-variance is CLA's optimization objective. HRP also produces less risky portfolios out-of-sample compared to traditional risk parity methods.  A presentation can be found at {\textless}a href='http://ssrn.com/abstract=2713516'{\textgreater}http://ssrn.com/abstract=2713516{\textless}/a{\textgreater}.},
+@article{LopezdePrado2015,
+abstract = {This paper introduces the Hierarchical Risk Parity (HRP) approach. HRP portfolios address three major concerns of quadratic optimizers in general and Markowitz's CLA in particular: Instability, concentration and underperformance. HRP applies modern mathematics (graph theory and machine learning techniques) to build a diversified portfolio based on the information contained in the covariance matrix. However, unlike quadratic optimizers, HRP does not require the invertibility of the covariance matrix. In fact, HRP can compute a portfolio on an ill-degenerated or even a singular covariance matrix, an impossible feat for quadratic optimizers. Monte Carlo experiments show that HRP delivers lower out-of-sample variance than CLA, even though minimum-variance is CLA's optimization objective. HRP also produces less risky portfolios out-of-sample compared to traditional risk parity methods. A presentation can be found at http://ssrn.com/abstract=2713516.},
 author = {{Lopez de Prado}, Marcos},
-booktitle = {SSRN},
 doi = {10.2139/ssrn.2708678},
+journal = {Journal of Portfolio Management},
 keywords = {E44,G0,G1,G15,G2,G24,Risk parity,cluster,dendogram,linkage,metric space,tree graph},
+number = {4},
+pages = {59--69},
 title = {{Building Diversified Portfolios that Outperform Out-of-Sample}},
+volume = {42},
 year = {2015}
 }
 @article{Koedijk2016,
@@ -546,7 +564,7 @@ author = {{Lopez de Prado}, Marcos},
 doi = {10.2139/ssrn.3104816},
 isbn = {2122243589},
 issn = {1556-5068},
-journal = {SSRN},
+journal = {Journal of Portfolio Management},
 keywords = {Backtest Overfitting,Big Data,E44,G0,G1,G15,G2,G24,High Performance Computing,Investment Strategies,Machine Learning,Quantamental Investing},
 title = {{The 10 Reasons Most Machine Learning Funds Fail}},
 year = {2018}
@@ -600,7 +618,9 @@ author = {Camargo, Sabrina and Queir{\'{o}}s, S{\'{i}}lvio M.Duarte and Anteneod
 doi = {10.1140/epjb/e2013-30974-9},
 issn = {14346028},
 journal = {European Physical Journal B},
+number = {4},
 title = {{Bridging stylized facts in finance and data non-stationarities}},
+volume = {86},
 year = {2013}
 }
 @unpublished{Dahlquist2015,
@@ -685,7 +705,10 @@ author = {Rebonato, Riccardo},
 doi = {10.1080/14697688.2017.1283915},
 issn = {1469-7688},
 journal = {Quantitative Finance},
+number = {5},
+pages = {1--4},
 title = {{Asset Management: A Systematic Approach to Factor Investing}},
+volume = {17},
 year = {2017}
 }
 @article{Chatzis2018,
@@ -825,9 +848,12 @@ author = {Bailey, David H. and Borwein, Jonathan and {Lopez de Prado}, Marcos an
 doi = {10.2139/ssrn.2308659},
 isbn = {9785970405475},
 issn = {0002-9920},
-journal = {SSRN},
+journal = {American Mathematical Society},
 keywords = {E44,G0,G1,G15,G2,G24,Sharpe ratio,backtest,historical simulation,investment strategy,minimum backtest length,optimization,performance degradation,probability of backtest over-fitting},
+number = {5},
+pages = {458--471},
 title = {{Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance}},
+volume = {61},
 year = {2013}
 }
 @article{Widrow1990,
@@ -980,3 +1006,13 @@ journal = {Quarterly Review of Economics and Finance},
 title = {{Conditional heteroskedasticity adjusted market model and an event study}},
 year = {1996}
 }
+
+@article{Lim2019,
+abstract = {While time series momentum is a well-studied phenomenon in finance, common strategies require the explicit definition of both a trend estimator and a position sizing rule. In this paper, we introduce Deep Momentum Networks -- a hybrid approach which injects deep learning based trading rules into the volatility scaling framework of time series momentum. The model also simultaneously learns both trend estimation and position sizing in a data-driven manner, with networks directly trained by optimising the Sharpe ratio of the signal. Backtesting on a portfolio of 88 continuous futures contracts, we demonstrate that the Sharpe-optimised LSTM improved traditional methods by more than two times in the absence of transactions costs, and continue outperforming when considering transaction costs up to 2-3 basis points. To account for more illiquid assets, we also propose a turnover regularisation term which trains the network to factor in costs at run-time.},
+author = {Lim, Bryan and Zohren, Stefan and Roberts, Stephen},
+doi = {10.2139/ssrn.3369195},
+journal = {SSRN Electronic Journal},
+title = {{Enhancing Time Series Momentum Strategies Using Deep Neural Networks}},
+year = {2019}
+}
+
